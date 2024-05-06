@@ -3,9 +3,54 @@
 }
 
 .photograph-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+}
+
+.photograph-header .informations_photographe {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.photograph-header .informations_photographe > * {
+    margin: 0;
+}
+
+.photograph-header .informations_photographe h2{
+    color: #D3573C;
+    font-size: 64px;
+    font-weight: 400;
+}
+
+.photograph-header .informations_photographe h3{
+    color: #901C1C;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.photograph-header .informations_photographe blockquote{
+    color: #000000;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.photograph-header .contact_header {
+    width: 170px;
+    height: 69px;
+}
+
+.photograph-header img {
+	height: 200px;
+	width: 200px;
+	border-radius: 50%;
+	object-fit: cover;
 }
 
 .contact_button {
