@@ -3,8 +3,9 @@
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" href="assets/favicon.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <title>Fisheye - photographe </title>
   </head>
   <body>
@@ -13,25 +14,57 @@
     </header>
     <main id="main">
       <div class="photograph-header">
+        <div class="data_photographer"></div>
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <div class="image_photographer"></div>
       </div>
     </main>
     <div id="contact_modal">
 			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
-        </header>
+				  <header>
+            <h2>Contactez-moi</h2>
+         
+           <img src="assets/icons/close.svg" onclick="closeModal()" />
+         </header>
+      
 				<form>
 					<div>
 						<label>Prénom</label>
-						<input />
+						<!-- <input /> -->
+
 					</div>
           <button class="contact_button">Envoyer</button>
-				</form>
+				  </form>
 			</div>
-		</div>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
+     
+		  </div>
+    
+   
+      <form  >
+        <p class="filter" > Trier par : &nbsp;
+          <select id="select" class="filter_description" >
+            <option value="titre">Titre</option>
+              <option value="Popularité">Popularité</option>
+              <option value="Date">Date</option>
+          </select>
+        </p>
+      </form>
+            
+      <div class="collection"></div>
+      <!-- <div class="lightbox"></div>  -->
+      <script src="scripts/api/Api.js"></script>
+      <script src="scripts/templates/datacollection.js"></script>
+      <script src="scripts/templates/collectionCard.js"></script>
+      <script src="scripts/templates/collectionMedia.js"></script>
+      <script src="scripts/templates/dataphotographer.js"></script>
+      <script src="scripts/templates/PhotographerCard.js"></script>
+      <script src="scripts/pages/photographer.js"></script>
+      
+      
+      
+     
+    
+    
+    <!-- <script src="/scripts/utils/contactForm.js"></script>  -->
   </body>
 </html>
