@@ -1,0 +1,78 @@
+@import url("photographer.css");
+
+body {
+    font-family: "DM Sans", sans-serif;
+    margin: 0;
+}
+
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+}
+
+h1 {
+    color: #901C1C;
+    font-size: 13px;
+    margin-right: 10px;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    padding: 1px;
+   
+}
+
+.logo {
+    height: 50px;
+    margin-left: 100px;
+}
+
+.photographer_section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 70px;
+    margin-top: 100px;
+    margin-bottom: 20vh;
+    text-align: center;
+}
+
+
+
+.photographer_section  h2 {
+    color: #D3573C;
+    font-size: 36px;
+    margin: 1px;
+    padding: 1px;
+    
+}
+.photographer_section h3 {
+    color: #901C1C;
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    
+    
+}
+.photographer_section  h4 {
+   color: black;
+    font-size: 10px;
+    font-weight: 400;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    
+}
+.photographer_section  p {
+    color: #757575;
+     font-size: 9px;
+     margin-top: 1px;
+     margin-bottom: 1px;
+     
+ }
+.photographer_section  img {
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+}

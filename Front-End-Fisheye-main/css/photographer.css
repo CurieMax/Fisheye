@@ -1,0 +1,337 @@
+#contact_modal {
+    display: none;
+}
+
+.photograph-header {
+    background-color: #FAFAFA;
+    height: 230px;
+    margin: 0 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 30px;
+   
+   }
+
+.tri_photo {
+    height: 230px;
+    margin: 0 100px;
+    padding-top: 30px;
+       }
+
+
+
+a {
+    text-decoration: none;
+   
+}
+
+.contact_button {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 70px;
+}
+
+.logo{
+  cursor: pointer;
+}
+.data_photographer{
+    padding-top: 50px;
+    padding-left: 60px;
+}
+
+.modal {
+    border-radius: 5px;
+    background-color: #DB8876;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 35px;
+    margin: auto;
+}
+
+.modal header {
+    justify-content: space-between;
+    width: 100%;
+}
+
+.modal header img {
+    cursor: pointer;
+}
+
+.modal header h2 {
+    font-size: 64px;
+    font-weight: normal;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+form label {
+    color: #312E2E;
+    font-size: 36px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: self-start;
+    margin-bottom: 26px;
+}
+
+form input {
+    width: 100%;
+    height: 68px;
+    border: none;
+    border-radius: 5px;
+}
+.photograph-header  h2 {
+    color: #D3573C;
+    font-size: 36px;
+    margin: 1px;
+    padding: 1px;
+    
+}
+.photograph-header h3 {
+    font-size: 10px;
+    font-weight: 400;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    
+}
+.photograph-header p {
+   color: #757575;
+    font-size: 9px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    
+}
+.photograph-header  img {
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    margin-right: 60px;
+    margin-top: 0px;
+ 
+}
+
+.collection {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 70px;
+margin-bottom: 20vh;
+padding-left: 7%;
+margin-right: 40%;
+text-align: center;
+margin-top: 0%;
+}
+
+.collection img{
+    height: 300px;
+    width: 300px;
+    margin-top: 0%;
+    cursor: pointer;
+   
+}
+.video{
+  height: 300px;
+  width: 300px;
+   margin-top: 0%;
+  cursor: pointer;
+ 
+}
+.filter_description {
+    font-size: 18px;
+    width: 130px;
+    height: 5vh;
+    background-color:#D3573C;
+    color: white;
+    border-radius: 10px;
+   
+  }
+  .filter{
+    padding-left: 8%;
+    font-size: 18px;
+    padding-bottom: 5%;
+    padding-top: 5%;
+  }
+  
+.btnLike {
+    color:#901C1C;
+    cursor: pointer;
+    padding-left: 10px;
+   
+   
+  }
+ 
+.nombreTotale{
+  position: fixed;
+  width: 10vw;
+  height: 5vh;
+  bottom: 40px; 
+  right:  40px;
+  z-index: 10;
+  color: white;
+  background-color: #D3573C;
+
+}
+
+.collection div{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+  
+   
+  }
+
+.title{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .text-control {
+    width: 100%;  /* Full width of the container */
+    height: 150px;  /* Adjust the height as needed */
+    font-size: 16px;  /* Adjust the font size as needed */
+    padding: 10px;  /* Adjust the padding as needed */
+    box-sizing: border-box;  /* Ensure padding is included in the total width and height */
+}
+/*********************** Style lightbox******************* */
+
+
+/* lightbox (background) */
+ /* .lightbox {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 80%;
+  height: 80%;
+  overflow: auto;
+  background-color: gray; 
+}*/ 
+ .lightbox{
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+} 
+
+/* Center the image within the modal */
+.lightbox img {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+}
+.lightbox video {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+}
+/* Modal Content */
+.light-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+  max-width: 100px;
+}
+
+/* Button fermer  */
+.lightbox_close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+ .lightbox_next, .lightbox_prev{
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+ }
+ /* Position button next a droit */
+.lightbox_next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.lightbox_prev {
+  left: 0;
+  border-radius: 3px 0 0 3px;
+}
+/* On hover, suivant et precedent */
+.lightbox_prev:hover,
+.lightbox_next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+/* On hover,  fermer  */
+.lightbox_close:hover,
+.lightbox_close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  
+}
+.imagestyle{
+  width: 100%;
+  height: 60%;
+}
+
+.myimage{
+  display : none;
+}
+
+video.fit_video{
+object-fit: cover;
+cursor: pointer;
+
+width: 100%;
+  height: 85%;
+}
+
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
