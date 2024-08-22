@@ -32,6 +32,16 @@ h1 {
   margin-top: 100px;
 }
 
+a {
+  text-decoration: none;
+  width: 350px;
+  justify-self: center;
+}
+
+a:hover {
+  transform: scale(1.1);
+}
+
 .photographer_section article {
   justify-self: center;
   display: flex;
@@ -54,10 +64,10 @@ h1 {
 }
 
 .photographer_section article img {
- height: 100%;
- width: 100%;
- object-fit: cover;
- border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .photographer_section article p {
@@ -88,11 +98,11 @@ h1 {
 }
 
 .price {
-    color: #757575;
-    text-align: center;
-    font-family: "DM Sans";
-    font-size: 9px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  color: #757575;
+  text-align: center;
+  font-family: "DM Sans";
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

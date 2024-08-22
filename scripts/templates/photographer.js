@@ -4,6 +4,12 @@ function photographerTemplate(data) {
     const picture = `assets/photographers/${portrait}`;
 
     function getUserCardDOM() {
+        // Création élément <a> pour envelopper l'article et le rendre cliquable
+        const link = document.createElement( 'a' );
+        // URL de déstination pour le lien en utilisant l'id du photographe
+        link.setAttribute("href", "photographer.html?id="+data.id);
+        // Accessibilité
+        link.setAttribute("aria-label", "Voir le profil de" +name);
         const article = document.createElement( 'article' );
         const idPhoto = document.createElement('span');
         idPhoto.className = "photographer_id";
@@ -28,11 +34,16 @@ function photographerTemplate(data) {
         p.appendChild(tagline);
         p.appendChild(price);
         
-        article.appendChild(p);
+        // Ajouter les éléments au contenu de l'article
+        
         article.appendChild(idPhoto);
         article.appendChild(h2);
         article.appendChild(p);
-        return (article);
+        
+        // Placez l'article dans le lien
+        link.appendChild(article);
+        // Retourner le lien
+        return link;
     }
     return { name, picture, city, country, tagline, price, getUserCardDOM }
 }
