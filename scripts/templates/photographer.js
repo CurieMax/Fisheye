@@ -42,6 +42,7 @@ function photographerTemplate(data) {
         
         // Placez l'article dans le lien
         link.appendChild(article);
+        
         // Retourner le lien
         return link;
     }

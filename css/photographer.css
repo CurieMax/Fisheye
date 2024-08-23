@@ -5,7 +5,27 @@
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
-    margin: 0 100px;
+    margin: 50px 100px;
+}
+
+.photograph-header article {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100%;
+}
+
+.photograph-header .photographer_id {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photograph-header img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
 }
 
 .contact_button {
