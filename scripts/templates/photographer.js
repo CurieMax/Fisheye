@@ -46,5 +46,56 @@ function photographerTemplate(data) {
         // Retourner le lien
         return link;
     }
-    return { name, picture, city, country, tagline, price, getUserCardDOM }
+
+   
+
+    return { name, picture, city, country, tagline, price, getUserCardDOM}
+}
+
+function photographerTemplates(data) {
+    const { name, portrait, city, country, tagline, price } = data;
+
+    const picture = `assets/photographers/${portrait}`;
+
+    function getUserCardSolo() {
+        const photographInfo = document.createElement('div');
+        photographInfo.className = "photograph_info";
+
+        // Titre du photographe
+        const h2 = document.createElement('h2');
+        h2.textContent = name;
+
+        // Création des éléments de localisation et de tagline
+        const p = document.createElement('p');
+        const localisation = document.createElement('span');
+        const tag = document.createElement('span');
+
+        localisation.textContent = `${city}, ${country}`;
+        tag.textContent = tagline;
+
+        // Ajout des classes pour le style
+        localisation.className = "location";
+        tag.className = "tagline";
+
+        // Ajout des éléments dans le paragraphe
+        p.appendChild(localisation);
+        p.appendChild(tag);
+
+        // Ajout du titre et du paragraphe dans le conteneur info
+        photographInfo.appendChild(h2);
+        photographInfo.appendChild(p);
+
+        // Création de l'image de profil
+        const idPhoto = document.createElement('div');
+        idPhoto.className = "photographer_id";
+        const img = document.createElement('img');
+        img.setAttribute("src", picture);
+        img.setAttribute("alt", `Portrait de ${name}`);
+        idPhoto.appendChild(img);
+
+        // Retourne les éléments créés
+        return { photographInfo, idPhoto };
+    }
+
+    return { name, picture, city, country, tagline, price, getUserCardSolo };
 }
