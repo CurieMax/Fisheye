@@ -87,7 +87,7 @@ function photographerTemplates(data) {
 
         // Création de l'image de profil
         const idPhoto = document.createElement('div');
-        idPhoto.className = "photographer_id";
+        idPhoto.className = "photographer_photo";
         const img = document.createElement('img');
         img.setAttribute("src", picture);
         img.setAttribute("alt", `Portrait de ${name}`);

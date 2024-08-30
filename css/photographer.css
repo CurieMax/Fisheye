@@ -77,18 +77,40 @@
   line-height: normal;
 }
 
-.photographer_id {
+.photographer_photo {
   display: flex;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
   margin-right: 50px;
 }
 
-.photographer_id img {
+.photographer_photo img {
   display: flex;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
 }
+
+/* Sort Media */
+
+.sort_options {
+  margin: 100px
+}
+
+.sort_options label {
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+#sort_media {
+  padding: 5px;
+  font-size: 16px;
+}
+
+/* Modal contact */
+
 .modal {
   border-radius: 5px;
   background-color: #db8876;
@@ -116,33 +138,45 @@
   text-align: center;
 }
 
-form {
+#contact_form {
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
 }
 
-form label {
+#contact_form label {
   color: #312e2e;
   font-size: 36px;
 }
 
-form div {
+#contact_form div {
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: self-start;
-  margin-bottom: 26px;
+  margin-bottom: 5px;
 }
 
-form input {
+#contact_form input {
   width: 100%;
   height: 68px;
   border: none;
   border-radius: 5px;
 }
 
-.message {
+#contact_form #message {
   height: 170px;
 }
+
+#error {
+  color: white;
+  font-size: 16px;
+}
+
+#contact_form input {
+  font-size: 25px;
+  font-family: "DM Sans";
+  font-weight: 400;
+}
+
