@@ -100,13 +100,22 @@
 }
 
 .sort_options label {
+  font-size: 20px;
   margin-right: 8px;
   font-weight: bold;
 }
 
-#sort_media {
-  padding: 5px;
-  font-size: 16px;
+#sortMedia {
+  height: 69px;
+  width: 170px;
+  text-align: center;
+  border-radius: 5px;
+  background: #901c1c;
+  color: white;
+  border: none;
+  font-family: "dm sans";
+  font-size: 18px;
+  font-weight: 700;
 }
 
 /* Modal contact */
