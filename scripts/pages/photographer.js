@@ -1,4 +1,4 @@
-// // Vider le contenu pour éviter le dédoublement
+
 document.querySelector(".photograph_header").photographersSection.innerHTML = '';
 
 function closeBtn() {

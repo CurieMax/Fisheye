@@ -1,8 +1,30 @@
+/**
+ * Creates a template for a photographer's profile.
+ *
+ * @param {object} data - An object containing the photographer's data.
+ * @param {string} data.name - The photographer's name.
+ * @param {string} data.portrait - The photographer's portrait image.
+ * @param {string} data.city - The photographer's city.
+ * @param {string} data.country - The photographer's country.
+ * @param {string} data.tagline - The photographer's tagline.
+ * @param {number} data.price - The photographer's price per day.
+ * @param {number} data.id - The photographer's ID.
+ * @return {object} An object containing the photographer's data and a function to get the user card DOM.
+ */
 function photographerTemplate(data) {
     const { name, portrait, city, country, tagline, price } = data;
 
     const picture = `assets/photographers/${portrait}`;
 
+    /**
+     * Creates a DOM element representing a photographer's profile card.
+     *
+     * @param {object} data - An object containing the photographer's data.
+     * @param {string} data.id - The photographer's ID.
+     * @param {string} data.name - The photographer's name.
+     * @param {string} picture - The photographer's picture.
+     * @return {HTMLElement} The DOM element representing the photographer's profile card.
+     */
     function getUserCardDOM() {
         // Création élément <a> pour envelopper l'article et le rendre cliquable
         const link = document.createElement( 'a' );
@@ -52,6 +74,18 @@ function photographerTemplate(data) {
     return { name, picture, city, country, tagline, price, getUserCardDOM}
 }
 
+/**
+ * Creates a photographer templates object.
+ *
+ * @param {object} data - An object containing the photographer's data.
+ * @param {string} data.name - The photographer's name.
+ * @param {string} data.portrait - The photographer's portrait.
+ * @param {string} data.city - The photographer's city.
+ * @param {string} data.country - The photographer's country.
+ * @param {string} data.tagline - The photographer's tagline.
+ * @param {number} data.price - The photographer's price.
+ * @return {object} An object containing the photographer's data and a function to get the user card solo.
+ */
 function photographerTemplates(data) {
     const { name, portrait, city, country, tagline, price } = data;
 
