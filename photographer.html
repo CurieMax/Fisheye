@@ -15,7 +15,7 @@
       <div class="photograph_header">  
       </div>
       <div class="sort_options">
-        <label for="sort_media">Trier par </label>
+        <label for="sort-media">Trier par </label>
         <select name="sort_media" id="sortMedia">
           <option value="popularity">Popularité</option>
           <option value="date">Date</option>
@@ -26,7 +26,7 @@
     <div id="contact_modal">
 			<div class="modal">
 				<header class="contact_title">
-          <h2>Contactez-moi</h2>
+          
           <img class="close" src="assets/icons/close.svg"/>
         </header>
 				<form id="contact_form">
@@ -35,7 +35,7 @@
 						<input 
               type="text"
               id="firstName"
-              name="first_name"
+              name="first-name"
                />
               <div id="error"></div>
 					</div>
@@ -44,7 +44,7 @@
 						<input 
               type="text"
               id="lastName"
-              name="last_name"/>
+              name="last-name"/>
               <div id="error"></div>
 					</div>
           <div>
@@ -69,8 +69,6 @@
         
 			</div>
 		</div>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
-    <script src="/scripts/templates/photographer.js"></script>
+    <script type="module" src="/scripts/pages/photographer.js"></script>
   </body>
 </html>

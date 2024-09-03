@@ -1,9 +1,16 @@
+import { photographerTemplate } from "../templates/photographer.js";
+import { closeModal, displayModal } from "../utils/contactForm.js";
 
-document.querySelector(".photograph_header").photographersSection.innerHTML = '';
 
 function closeBtn() {
   document.querySelector(".close").addEventListener("click", () => {
     closeModal();
+  });
+}
+
+function openModal() {
+  document.querySelector(".contact_button").addEventListener("click", () => {
+    displayModal();
   });
 }
 
@@ -42,14 +49,18 @@ async function displayData(photographer) {
   const photographersSection = document.querySelector(".photograph_header");
 
   // Afficher les informations du photographe dans la page
-  const photographerModel = photographerTemplates(photographer);
+  const photographerModel = photographerTemplate(photographer);
   const { photographInfo, idPhoto} = photographerModel.getUserCardSolo();
 
   // Create contact button
   const contactButton = document.createElement("button");
   contactButton.className = "contact_button";
   contactButton.textContent = "Contactez-moi";
-  contactButton.addEventListener("click", displayModal);
+  const addNameOnTitle = document.createElement('h2');
+  addNameOnTitle.textContent = `Contactez-moi ${photographer.name}`;
+  document.querySelector('.contact_title').appendChild(addNameOnTitle);
+
+
   // Ajouter la carte du photographe à la page
   photographersSection.appendChild(photographInfo);
   photographersSection.appendChild(contactButton);
@@ -81,7 +92,7 @@ async function init() {
   // On affiche les informations du photographe
   displayData(photographer);
 
-  
+  openModal();
   closeBtn();
   
 }

@@ -10,22 +10,21 @@ const errors = document.querySelectorAll(".error");
  *
  * @return {void}
  */
-function displayModal() {
-    const modal = document.getElementById("contact_modal");
-	modal.style.display = "block";
-};
+export function displayModal(photographer) {
+  const modal = document.getElementById("contact_modal");
+  modal.style.display = "block";
+}
 
 /**
  * Closes the contact modal by setting its display style to none and resets the form.
  *
  * @return {void} This function does not return anything.
  */
-function closeModal() {
-    const modal = document.getElementById("contact_modal");
-    modal.style.display = "none";
-    form.reset();
-};
-
+export function closeModal() {
+  const modal = document.getElementById("contact_modal");
+  modal.style.display = "none";
+  form.reset();
+}
 
 /**
  * Displays an error message next to the specified element.
@@ -39,7 +38,6 @@ const showErrorMessage = (element, message) => {
   element.nextElementSibling.textContent = message;
 };
 
-
 /**
  * Hides the error message by removing the "error" class from the specified element and clearing its next sibling's text content.
  *
@@ -50,8 +48,6 @@ const hideErrorMessage = (element) => {
   element.classList.remove("error");
   element.nextElementSibling.textContent = "";
 };
-
-
 
 /**
  * Validates the first name input field.
@@ -71,9 +67,9 @@ function validationFirstName() {
     hideErrorMessage(firstName);
     return true;
   }
-  
-  return false
-};
+
+  return false;
+}
 
 /**
  * Validates the last name input field.
@@ -85,7 +81,6 @@ function validationLastName() {
 
   if (!reTest.test(lastName.value)) {
     showErrorMessage(lastName, "Veuillez renseigner un nom valide");
-    
   } else if (lastName.value === "") {
     showErrorMessage(lastName, "Veuillez renseigner ce champ");
   } else if (lastName.value.length < 2) {
@@ -94,10 +89,9 @@ function validationLastName() {
     hideErrorMessage(lastName);
     return true;
   }
-  
-  return false
-};
-  
+
+  return false;
+}
 
 /**
  * Validates the email input field.
@@ -105,7 +99,8 @@ function validationLastName() {
  * @return {boolean} true if the email is valid, false otherwise
  */
 function validationEmail() {
-  const reTest = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const reTest =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   if (!reTest.test(email.value)) {
     showErrorMessage(email, "Veuillez renseigner une adresse email valide");
@@ -115,9 +110,9 @@ function validationEmail() {
     hideErrorMessage(email);
     return true;
   }
-  
-  return false
-};
+
+  return false;
+}
 
 /**
  * Validates the message input field.
@@ -132,15 +127,14 @@ function validationMessage() {
     hideErrorMessage(message);
     return true;
   }
-};
-
+}
 
 /**
  * Validates the entire contact form input.
  *
  * @return {boolean} true if the form input is valid, false otherwise
  */
-function validateInput () {
+function validateInput() {
   let isValidFirstName = validationFirstName();
   let isValidLastName = validationLastName();
   let isValidEmail = validationEmail();
@@ -149,13 +143,19 @@ function validateInput () {
     return true;
   }
   return false;
-};
+}
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+
+  const formInput = event.target;
+  const formData = new FormData(formInput);
+
+  formData.forEach((value, key) => {
+    console.log(key + " : " + value);
+  });
+
   if (validateInput()) {
     closeModal();
   }
 });
-
-init();

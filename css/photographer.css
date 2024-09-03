@@ -1,3 +1,10 @@
+#main {
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
 #contact_modal {
   display: none;
   position: fixed;
@@ -16,7 +23,8 @@
   align-items: center;
   background-color: #fafafa;
   height: 300px;
-  margin: 50px 100px;
+  border-radius: 5px;
+  margin-top: 40px;
 }
 
 .contact_button {
@@ -96,7 +104,7 @@
 /* Sort Media */
 
 .sort_options {
-  margin: 100px
+  margin-top: 20px;
 }
 
 .sort_options label {
@@ -153,16 +161,19 @@
 .modal header {
   justify-content: space-between;
   width: 100%;
+  display: flex;
+  margin-bottom: 20px;
+  margin-top: 15px;
 }
 
 .modal header img {
+  order: 1;
   cursor: pointer;
 }
 
 .modal header h2 {
-  font-size: 64px;
+  font-size: 60px;
   font-weight: normal;
-  text-align: center;
 }
 
 #contact_form {
@@ -170,6 +181,7 @@
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 5px;
 }
 
 #contact_form label {

@@ -11,7 +11,7 @@
  * @param {number} data.id - The photographer's ID.
  * @return {object} An object containing the photographer's data and a function to get the user card DOM.
  */
-function photographerTemplate(data) {
+export function photographerTemplate(data) {
     const { name, portrait, city, country, tagline, price } = data;
 
     const picture = `assets/photographers/${portrait}`;
@@ -69,28 +69,6 @@ function photographerTemplate(data) {
         return link;
     }
 
-   
-
-    return { name, picture, city, country, tagline, price, getUserCardDOM}
-}
-
-/**
- * Creates a photographer templates object.
- *
- * @param {object} data - An object containing the photographer's data.
- * @param {string} data.name - The photographer's name.
- * @param {string} data.portrait - The photographer's portrait.
- * @param {string} data.city - The photographer's city.
- * @param {string} data.country - The photographer's country.
- * @param {string} data.tagline - The photographer's tagline.
- * @param {number} data.price - The photographer's price.
- * @return {object} An object containing the photographer's data and a function to get the user card solo.
- */
-function photographerTemplates(data) {
-    const { name, portrait, city, country, tagline, price } = data;
-
-    const picture = `assets/photographers/${portrait}`;
-
     function getUserCardSolo() {
         const photographInfo = document.createElement('div');
         photographInfo.className = "photograph_info";
@@ -126,10 +104,11 @@ function photographerTemplates(data) {
         img.setAttribute("src", picture);
         img.setAttribute("alt", `Portrait de ${name}`);
         idPhoto.appendChild(img);
+        
 
         // Retourne les éléments créés
         return { photographInfo, idPhoto };
     }
 
-    return { name, picture, city, country, tagline, price, getUserCardSolo };
+    return { name, picture, city, country, tagline, price, getUserCardDOM, getUserCardSolo };
 }
