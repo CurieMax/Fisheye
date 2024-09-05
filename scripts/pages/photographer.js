@@ -77,6 +77,8 @@ function getPhotographersIdFromUrl() {
   return parseInt(url.get("id")); // Retourne l'ID en tant q'entier
 }
 
+
+
 /**
  * Initializes the function by retrieving the photographer's ID from the URL,
  * fetching the photographer's information using the ID, and displaying the
