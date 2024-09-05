@@ -112,3 +112,39 @@ export function photographerTemplate(data) {
 
     return { name, picture, city, country, tagline, price, getUserCardDOM, getUserCardSolo };
 }
+
+export function mediaTemplate(data) {
+    const { id, title, image, date, price, likes } = data;
+    const picture = `assets/media/${image}`;
+    const link = `photographer.html?id=${id}`;
+
+    function getMediaCardDOM() {
+        const imgCard = document.createElement('div');
+        imgCard.className = "image-card";
+
+        const img = document.createElement('img');
+        img.setAttribute("src", picture);
+        img.setAttribute("alt", title);
+
+        const imgInfo = document.createElement('div');
+        imgInfo.className = "image-info";
+
+        const imgTitle = document.createElement('span');
+        imgTitle.className = "image-title";
+        imgTitle.textContent = title;
+
+        const imgLikes = document.createElement('span');
+        imgLikes.className = "image-likes";
+        imgLikes.textContent = `${likes} ♥`;
+
+
+
+        imgInfo.appendChild(imgTitle);
+        imgInfo.appendChild(imgLikes);
+        imgCard.appendChild(img);
+        imgCard.appendChild(imgInfo);
+        return imgCard;
+        
+    }
+    return { id, title, picture, link, date, price, likes, getMediaCardDOM };
+}

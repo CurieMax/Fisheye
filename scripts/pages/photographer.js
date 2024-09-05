@@ -1,4 +1,4 @@
-import { photographerTemplate } from "../templates/photographer.js";
+import { mediaTemplate, photographerTemplate } from "../templates/photographer.js";
 import { closeModal, displayModal } from "../utils/contactForm.js";
 
 
@@ -67,6 +67,32 @@ async function displayData(photographer) {
   photographersSection.appendChild(idPhoto);
 }
 
+async function getMedias(id) {
+  // On recherche le fichier JSON
+  const url = "data/photographers.json";
+  // On demande d'attendre la reponse
+  const response = await fetch(url);
+  // On récupère les datas
+  const data = await response.json();
+  // On récupère les medias
+  const { media } = data;
+  // On filtre les medias correspondant à l'id recherqué
+  const medias = media.filter((media) => media.photographerId === id);
+  return {
+    medias: medias,
+  };
+}
+
+
+async function displayMediasData(medias) {
+  const mediaSection = document.querySelector(".gallery");
+  medias.forEach((media) => {
+    const mediaModel = mediaTemplate(media);
+    const imgCard = mediaModel.getMediaCardDOM();
+    mediaSection.appendChild(imgCard);
+  });
+}
+
 /**
  * Retrieves the photographer's ID from the URL.
  *
@@ -93,6 +119,9 @@ async function init() {
   const { photographer } = await getPhotographers(photographerId);
   // On affiche les informations du photographe
   displayData(photographer);
+
+  const { medias } = await getMedias(photographerId);
+  displayMediasData(medias);
 
   openModal();
   closeBtn();
