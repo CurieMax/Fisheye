@@ -67,6 +67,13 @@ async function displayData(photographer) {
   photographersSection.appendChild(idPhoto);
 }
 
+
+/**
+ * Retrieves media data from a JSON file based on a given photographer ID.
+ *
+ * @param {number} id - The ID of the photographer.
+ * @return {Object} An object containing an array of media objects associated with the photographer.
+ */
 async function getMedias(id) {
   // On recherche le fichier JSON
   const url = "data/photographers.json";
@@ -84,6 +91,12 @@ async function getMedias(id) {
 }
 
 
+/**
+ * Displays the media data in the gallery section of the page.
+ *
+ * @param {Object[]} medias - An array of media objects to be displayed.
+ * @return {void}
+ */
 async function displayMediasData(medias) {
   const mediaSection = document.querySelector(".gallery");
   medias.forEach((media) => {
@@ -103,6 +116,29 @@ function getPhotographersIdFromUrl() {
   return parseInt(url.get("id")); // Retourne l'ID en tant q'entier
 }
 
+document.getElementById("sortMedia").addEventListener("change", function() {
+  // Use for collect the value
+  // 'this' is the select element
+  const sortBy = this.value;
+  // choose gallery
+  const gallery = document.querySelector(".gallery");
+  // create an array
+  const items = Array.from(gallery.children);
+
+
+  items.sort((a, b) => {
+    if (sortBy === "popularity") {
+      return parseInt(b.getAttribute("likes")) - parseInt(a.getAttribute("likes"));
+    } else if (sortBy === "date") {
+      return new Date(b.getAttribute("date")) - new Date(a.getAttribute("date"));
+    } else if (sortBy === "title") {
+      return a.getAttribute("title").localeCompare(b.getAttribute("title"), 'fr', { sensitivity: 'base' });// ignore upper and lowercase
+    }
+    });
+    items.forEach(item => gallery.appendChild(item));
+  
+    });
+  
 
 
 /**

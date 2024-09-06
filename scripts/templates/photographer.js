@@ -121,6 +121,10 @@ export function mediaTemplate(data) {
     function getMediaCardDOM() {
         const imgCard = document.createElement('div');
         imgCard.className = "image-card";
+        imgCard.setAttribute("id", id);
+        imgCard.setAttribute("title", title);
+        imgCard.setAttribute("date", date);
+        imgCard.setAttribute("likes", likes);
 
         const img = document.createElement('img');
         img.setAttribute("src", picture);
