@@ -91,7 +91,7 @@ async function getMedias(id) {
   const data = await response.json();
   // On récupère les medias
   const { media } = data;
-  // On filtre les medias correspondant à l'id recherqué
+  // On filtre les medias correspondant à l'id recherché
   const medias = media.filter((media) => media.photographerId === id);
   return {
     medias: medias,
@@ -145,14 +145,7 @@ function getPhotographersIdFromUrl() {
   return parseInt(url.get("id")); // Retourne l'ID en tant q'entier
 }
 
-document.getElementById("sortMedia").addEventListener("change", function () {
-  // Use for collect the value
-  // 'this' is the select element
-  const sortBy = this.value;
-  // choose gallery
-  const gallery = document.querySelector(".gallery");
-  // create an array
-  const items = Array.from(gallery.children);
+function filterMedia (items, sortBy) {
 
   items.sort((a, b) => {
     if (sortBy === "popularity") {
@@ -169,8 +162,24 @@ document.getElementById("sortMedia").addEventListener("change", function () {
         .localeCompare(b.getAttribute("title"), "fr", { sensitivity: "base" }); // ignore upper and lowercase
     }
   });
-  items.forEach((item) => gallery.appendChild(item));
+  
+  return items;
+}
+
+document.getElementById("sortMedia").addEventListener("change", function () {
+  // Use for collect the value
+  // 'this' is the select element
+  const sortBy = this.value;
+  // choose gallery
+  const gallery = document.querySelector(".gallery");
+  // create an array
+  const items = Array.from(gallery.children);
+
+  let orderItems = filterMedia(items, sortBy); ;
+  orderItems.forEach((item) => gallery.appendChild(item));
+  
 });
+
 
 /**
  * Initializes the function by retrieving the photographer's ID from the URL,

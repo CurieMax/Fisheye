@@ -114,8 +114,8 @@ export function photographerTemplate(data) {
 }
 
 export function mediaTemplate(data) {
-    const { id, title, image, date, price, likes } = data;
-    const picture = `assets/media/${image}`;
+    const { id, title, image, video, date, price, likes } = data;
+    const path = `assets/media/`;
     const link = `photographer.html?id=${id}`;
 
     function getMediaCardDOM() {
@@ -125,10 +125,16 @@ export function mediaTemplate(data) {
         imgCard.setAttribute("title", title);
         imgCard.setAttribute("date", date);
         imgCard.setAttribute("likes", likes);
-
-        const img = document.createElement('img');
-        img.setAttribute("src", picture);
-        img.setAttribute("alt", title);
+        
+        let media;
+        if (image) {
+        media = document.createElement('img');
+        media.setAttribute("src", path + image);
+        media.setAttribute("alt", title);
+        } else  {
+        media = document.createElement('video');
+        media.setAttribute("src", path + video)
+        }
 
         const imgInfo = document.createElement('div');
         imgInfo.className = "image-info";
@@ -149,12 +155,12 @@ export function mediaTemplate(data) {
 
         imgInfo.appendChild(imgTitle);
         imgInfo.appendChild(imgLikes);
-        imgCard.appendChild(img);
+        imgCard.appendChild(media);
         imgCard.appendChild(imgInfo);
         return imgCard;
         
         
     }
-    return { id, title, picture, link, date, price, likes, getMediaCardDOM };
+    return { id, title, link, date, price, likes, getMediaCardDOM };
 
 }
