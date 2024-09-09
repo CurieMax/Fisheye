@@ -1,6 +1,8 @@
-import { mediaTemplate, photographerTemplate } from "../templates/photographer.js";
+import {
+  mediaTemplate,
+  photographerTemplate,
+} from "../templates/photographer.js";
 import { closeModal, displayModal } from "../utils/contactForm.js";
-
 
 function closeBtn() {
   document.querySelector(".close").addEventListener("click", () => {
@@ -50,23 +52,29 @@ async function displayData(photographer) {
 
   // Afficher les informations du photographe dans la page
   const photographerModel = photographerTemplate(photographer);
-  const { photographInfo, idPhoto} = photographerModel.getUserCardSolo();
+  const { photographInfo, idPhoto } = photographerModel.getUserCardSolo();
 
   // Create contact button
   const contactButton = document.createElement("button");
   contactButton.className = "contact_button";
   contactButton.textContent = "Contactez-moi";
-  const addNameOnTitle = document.createElement('h2');
+  const addNameOnTitle = document.createElement("h2");
   addNameOnTitle.textContent = `Contactez-moi ${photographer.name}`;
-  document.querySelector('.contact_title').appendChild(addNameOnTitle);
-
+  document.querySelector(".contact_title").appendChild(addNameOnTitle);
 
   // Ajouter la carte du photographe à la page
   photographersSection.appendChild(photographInfo);
   photographersSection.appendChild(contactButton);
   photographersSection.appendChild(idPhoto);
-}
 
+  // Ajout de l'information du prix du photographe
+  const bottomSection = document.querySelector(".bottom_info");
+
+  const totalPrice = document.createElement("div");
+  totalPrice.className = "total_price";
+  totalPrice.textContent = `${photographer.price}€/jour`;
+  bottomSection.appendChild(totalPrice);
+}
 
 /**
  * Retrieves media data from a JSON file based on a given photographer ID.
@@ -90,7 +98,6 @@ async function getMedias(id) {
   };
 }
 
-
 /**
  * Displays the media data in the gallery section of the page.
  *
@@ -99,11 +106,33 @@ async function getMedias(id) {
  */
 async function displayMediasData(medias) {
   const mediaSection = document.querySelector(".gallery");
+
+  // initialise le total des likes
+  let totalLikes = 0;
+
+  // Afficher les medias
   medias.forEach((media) => {
     const mediaModel = mediaTemplate(media);
     const imgCard = mediaModel.getMediaCardDOM();
     mediaSection.appendChild(imgCard);
+
+    // Calculer le total des likes
+    totalLikes += media.likes;
   });
+
+  // Ajouter le total des likes dans le bas de page
+
+  const bottomSection = document.querySelector(".bottom_info");
+  const totalLikesElement = document.createElement("div");
+  totalLikesElement.className = "total_likes";
+  totalLikesElement.textContent = `${totalLikes}`;
+  bottomSection.appendChild(totalLikesElement);
+
+  const icon = document.createElement("i");
+  icon.className = "fa-solid fa-heart";
+  icon.setAttribute("aria-label", "Ajouter aux favoris");
+  totalLikesElement.appendChild(icon);
+  
 }
 
 /**
@@ -116,7 +145,7 @@ function getPhotographersIdFromUrl() {
   return parseInt(url.get("id")); // Retourne l'ID en tant q'entier
 }
 
-document.getElementById("sortMedia").addEventListener("change", function() {
+document.getElementById("sortMedia").addEventListener("change", function () {
   // Use for collect the value
   // 'this' is the select element
   const sortBy = this.value;
@@ -125,21 +154,23 @@ document.getElementById("sortMedia").addEventListener("change", function() {
   // create an array
   const items = Array.from(gallery.children);
 
-
   items.sort((a, b) => {
     if (sortBy === "popularity") {
-      return parseInt(b.getAttribute("likes")) - parseInt(a.getAttribute("likes"));
+      return (
+        parseInt(b.getAttribute("likes")) - parseInt(a.getAttribute("likes"))
+      );
     } else if (sortBy === "date") {
-      return new Date(b.getAttribute("date")) - new Date(a.getAttribute("date"));
+      return (
+        new Date(b.getAttribute("date")) - new Date(a.getAttribute("date"))
+      );
     } else if (sortBy === "title") {
-      return a.getAttribute("title").localeCompare(b.getAttribute("title"), 'fr', { sensitivity: 'base' });// ignore upper and lowercase
+      return a
+        .getAttribute("title")
+        .localeCompare(b.getAttribute("title"), "fr", { sensitivity: "base" }); // ignore upper and lowercase
     }
-    });
-    items.forEach(item => gallery.appendChild(item));
-  
-    });
-  
-
+  });
+  items.forEach((item) => gallery.appendChild(item));
+});
 
 /**
  * Initializes the function by retrieving the photographer's ID from the URL,
@@ -161,7 +192,6 @@ async function init() {
 
   openModal();
   closeBtn();
-  
 }
 
 init();

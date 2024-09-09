@@ -139,9 +139,13 @@ export function mediaTemplate(data) {
 
         const imgLikes = document.createElement('span');
         imgLikes.className = "image-likes";
-        imgLikes.textContent = `${likes} ♥`;
+        imgLikes.textContent = `${likes} `;
 
-
+        const icon = document.createElement('i');
+        icon.className = "fa-solid fa-heart";
+        icon.setAttribute("aria-label", "Ajouter aux favoris");
+        icon.setAttribute("likes", likes);
+        imgLikes.appendChild(icon);
 
         imgInfo.appendChild(imgTitle);
         imgInfo.appendChild(imgLikes);
@@ -149,6 +153,8 @@ export function mediaTemplate(data) {
         imgCard.appendChild(imgInfo);
         return imgCard;
         
+        
     }
     return { id, title, picture, link, date, price, likes, getMediaCardDOM };
+
 }
