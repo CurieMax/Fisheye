@@ -98,6 +98,125 @@ async function getMedias(id) {
   };
 }
 
+function createLightbox() {
+
+  const lightbox = document.createElement("div");
+  lightbox.className = "lightbox";
+  lightbox.id = "lightbox";
+
+  const lightboxClose = document.createElement("img");
+  lightboxClose.className = "close-lightbox";
+  lightboxClose.setAttribute("src", "assets/icons/close.svg");
+  
+  const lightboxImage = document.createElement("img");
+  lightboxImage.className = "lightbox-content";
+  lightboxImage.id = "lightboxImage";
+
+  const lightboxPrev = document.createElement("a");
+  lightboxPrev.className = "prev";
+  lightboxPrev.textContent = "<";
+  const lightboxNext = document.createElement("a");
+  lightboxNext.className = "next";
+  lightboxNext.textContent = ">";
+
+  lightbox.appendChild(lightboxClose);
+  lightbox.appendChild(lightboxImage);
+  lightbox.appendChild(lightboxPrev);
+  lightbox.appendChild(lightboxNext);
+  
+  document.body.appendChild(lightbox);
+
+  
+  
+}
+
+/**
+ * Initializes the lightbox functionality for displaying media in a gallery.
+ *
+ * This function sets up the necessary event listeners and variables for the lightbox
+ * to work properly. It also defines functions for opening, closing, and navigating
+ * through the lightbox images. The `setupMediaForLightbox` function is called to
+ * attach click event listeners to each image in the gallery, so that when an
+ * image is clicked, the corresponding lightbox image is displayed.
+ *
+ * @return {void} This function does not return anything.
+ */
+function lightbox() {
+  // Ajouter les fonctionnalités de la lightbox
+  let currentMediaIndex = 0;
+  let mediaElements = [];
+
+  /**
+   * Opens the lightbox and displays the media at the specified index.
+   *
+   * @param {number} index - The index of the media to display in the lightbox.
+   * @return {void} This function does not return anything.
+   */
+  function openLightbox(index) {
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+
+    currentMediaIndex = index;
+    lightbox.style.display = "block";
+    lightboxImage.src = mediaElements[currentMediaIndex].src;
+  }
+
+  /**
+   * Closes the lightbox by hiding it from the user's view.
+   *
+   * @return {void} This function does not return anything.
+   */
+  function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+
+  /**
+   * Displays the next media item in the lightbox by incrementing the current media index.
+   *
+   * @return {void} This function does not return anything.
+   */
+  function showNext() {
+    // On change le numero de l'index lorsqu'on clique sur le bouton suivant
+    currentMediaIndex = (currentMediaIndex + 1) % mediaElements.length;
+    document.getElementById("lightboxImage").src =
+      mediaElements[currentMediaIndex].src;
+  }
+
+  /**
+   * Displays the previous media item in the lightbox by decrementing the current media index.
+   *
+   * @return {void} This function does not return anything.
+   */
+  function showPrevious() {
+    // On change le numero de l'index lorsqu'on clique sur le bouton precedent
+    currentMediaIndex =
+      (currentMediaIndex - 1 + mediaElements.length) % mediaElements.length;
+    document.getElementById("lightboxImage").src =
+      mediaElements[currentMediaIndex].src;
+  }
+
+  document
+    .querySelector(".close-lightbox")
+    .addEventListener("click", closeLightbox);
+  document.querySelector(".next").addEventListener("click", showNext);
+  document.querySelector(".prev").addEventListener("click", showPrevious);
+
+  /**
+   * Sets up media elements in the gallery for lightbox functionality.
+   *
+   * @return {void} This function does not return anything.
+   */
+  function setupMediaForLightbox() {
+    // On récupère les medias et lorsqu'on clique sur une image, on ouvre la lightbox
+    mediaElements = Array.from(document.querySelectorAll(".gallery img"));
+    mediaElements.forEach((img, index) => {
+      img.addEventListener("click", () => openLightbox(index));
+    });
+  }
+
+  setupMediaForLightbox();
+}
+
 /**
  * Displays the media data in the gallery section of the page.
  *
@@ -132,7 +251,6 @@ async function displayMediasData(medias) {
   icon.className = "fa-solid fa-heart";
   icon.setAttribute("aria-label", "Ajouter aux favoris");
   totalLikesElement.appendChild(icon);
-  
 }
 
 /**
@@ -145,8 +263,7 @@ function getPhotographersIdFromUrl() {
   return parseInt(url.get("id")); // Retourne l'ID en tant q'entier
 }
 
-function filterMedia (items, sortBy) {
-
+function filterMedia(items, sortBy) {
   items.sort((a, b) => {
     if (sortBy === "popularity") {
       return (
@@ -162,7 +279,7 @@ function filterMedia (items, sortBy) {
         .localeCompare(b.getAttribute("title"), "fr", { sensitivity: "base" }); // ignore upper and lowercase
     }
   });
-  
+
   return items;
 }
 
@@ -175,11 +292,9 @@ document.getElementById("sortMedia").addEventListener("change", function () {
   // create an array
   const items = Array.from(gallery.children);
 
-  let orderItems = filterMedia(items, sortBy); ;
+  let orderItems = filterMedia(items, sortBy);
   orderItems.forEach((item) => gallery.appendChild(item));
-  
 });
-
 
 /**
  * Initializes the function by retrieving the photographer's ID from the URL,
@@ -201,6 +316,8 @@ async function init() {
 
   openModal();
   closeBtn();
+  createLightbox();
+  lightbox();
 }
 
 init();

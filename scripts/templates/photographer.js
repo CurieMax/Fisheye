@@ -118,6 +118,8 @@ export function mediaTemplate(data) {
     const path = `assets/media/`;
     const link = `photographer.html?id=${id}`;
 
+
+    
     function getMediaCardDOM() {
         const imgCard = document.createElement('div');
         imgCard.className = "image-card";
@@ -129,10 +131,12 @@ export function mediaTemplate(data) {
         let media;
         if (image) {
         media = document.createElement('img');
+        media.className = "gallery-item"
         media.setAttribute("src", path + image);
         media.setAttribute("alt", title);
         } else  {
         media = document.createElement('video');
+        media.className = "gallery-item"
         media.setAttribute("src", path + video)
         }
 
