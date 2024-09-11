@@ -284,9 +284,11 @@
   gap: 6px;
 }
 
-.image-likes  i {
-  margin-right: 5px;
+
+
+.image-likes .liked {
   color: #901C1C;
+  font-weight: 700;
 }
 
 /* Lightbox */

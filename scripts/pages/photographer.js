@@ -159,6 +159,9 @@ function lightbox() {
     currentMediaIndex = index;
     lightbox.style.display = "block";
     lightboxImage.src = mediaElements[currentMediaIndex].src;
+
+    // Ajouter un écouteur pour les touches du clavier
+    document.addEventListener("keydown", handleKeydown);
   }
 
   /**
@@ -168,6 +171,9 @@ function lightbox() {
    */
   function closeLightbox() {
     document.getElementById("lightbox").style.display = "none";
+
+    // Enlever le routeur pour les touches du clavier
+    document.removeEventListener("keydown", handleKeydown);
   }
 
   /**
@@ -193,6 +199,17 @@ function lightbox() {
       (currentMediaIndex - 1 + mediaElements.length) % mediaElements.length;
     document.getElementById("lightboxImage").src =
       mediaElements[currentMediaIndex].src;
+  }
+
+  // Gérer les touches fléchées
+  function handleKeydown(event) {
+    if (event.key === "ArrowRight") {
+      showNext(); // Flèche droite pour l'élément suivant
+    } else if (event.key === "ArrowLeft") {
+      showPrevious(); // Flèche gauche pour l'élément précédent
+    } else if (event.key === "Escape") {
+      closeLightbox(); // Touche "Escape" pour fermer la lightbox
+    }
   }
 
   document
@@ -235,10 +252,12 @@ async function displayMediasData(medias) {
     const imgCard = mediaModel.getMediaCardDOM();
     mediaSection.appendChild(imgCard);
 
-    // Calculer le total des likes
+    // Mettre à jour le total des likes
     totalLikes += media.likes;
+    
   });
 
+  
   // Ajouter le total des likes dans le bas de page
 
   const bottomSection = document.querySelector(".bottom_info");
@@ -295,6 +314,8 @@ document.getElementById("sortMedia").addEventListener("change", function () {
   let orderItems = filterMedia(items, sortBy);
   orderItems.forEach((item) => gallery.appendChild(item));
 });
+
+
 
 /**
  * Initializes the function by retrieving the photographer's ID from the URL,

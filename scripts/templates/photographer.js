@@ -117,6 +117,8 @@ export function mediaTemplate(data) {
     const { id, title, image, video, date, price, likes } = data;
     const path = `assets/media/`;
     const link = `photographer.html?id=${id}`;
+    let isLiked = false;
+    let currentLikes = likes;
 
 
     
@@ -126,7 +128,7 @@ export function mediaTemplate(data) {
         imgCard.setAttribute("id", id);
         imgCard.setAttribute("title", title);
         imgCard.setAttribute("date", date);
-        imgCard.setAttribute("likes", likes);
+        imgCard.setAttribute("likes", currentLikes);
         
         let media;
         if (image) {
@@ -149,14 +151,28 @@ export function mediaTemplate(data) {
 
         const imgLikes = document.createElement('span');
         imgLikes.className = "image-likes";
-        imgLikes.textContent = `${likes} `;
+        imgLikes.textContent = `${currentLikes} `;
 
         const icon = document.createElement('i');
-        icon.className = "fa-solid fa-heart";
+        icon.className = "fa-regular fa-heart";
         icon.setAttribute("aria-label", "Ajouter aux favoris");
-        icon.setAttribute("likes", likes);
-        imgLikes.appendChild(icon);
+        icon.setAttribute("likes", currentLikes);
 
+         // Gestionnaire de clic pour l'icône de like
+         icon.addEventListener('click', () => {
+            if (isLiked) {
+                currentLikes--;
+                icon.classList.remove('liked'); // Enlevez la classe "liked" pour afficher le cœur non rempli
+            } else {
+                currentLikes++;
+                icon.classList.add('liked'); // Ajoutez la classe "liked" pour afficher le cœur rempli
+            }
+            isLiked = !isLiked;
+            imgLikes.textContent = `${currentLikes} `;
+            imgLikes.appendChild(icon); // Réattacher l'icône mise à jour
+        });
+
+        imgLikes.appendChild(icon);
         imgInfo.appendChild(imgTitle);
         imgInfo.appendChild(imgLikes);
         imgCard.appendChild(media);
