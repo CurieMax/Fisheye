@@ -158,18 +158,26 @@ export function mediaTemplate(data) {
         icon.setAttribute("aria-label", "Ajouter aux favoris");
         icon.setAttribute("likes", currentLikes);
 
+        let totalLikes = likes;
+
          // Gestionnaire de clic pour l'icône de like
-         icon.addEventListener('click', () => {
+         icon.addEventListener("click", () => {
             if (isLiked) {
-                currentLikes--;
-                icon.classList.remove('liked'); // Enlevez la classe "liked" pour afficher le cœur non rempli
+              currentLikes--;
+              totalLikes--;
+              icon.classList.remove("liked"); // Enlevez la classe "liked" pour afficher le cœur non rempli
             } else {
-                currentLikes++;
-                icon.classList.add('liked'); // Ajoutez la classe "liked" pour afficher le cœur rempli
+              currentLikes++;
+              totalLikes++;
+              icon.classList.add("liked"); // Ajoutez la classe "liked" pour afficher le cœur rempli
             }
             isLiked = !isLiked;
+      
             imgLikes.textContent = `${currentLikes} `;
             imgLikes.appendChild(icon); // Réattacher l'icône mise à jour
+      
+            // Mettre à jour le total des likes dans le bas de page
+            document.querySelector(".total_likes").textContent = `${totalLikes}`;
         });
 
         imgLikes.appendChild(icon);
