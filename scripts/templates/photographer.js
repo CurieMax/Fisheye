@@ -151,33 +151,43 @@ export function mediaTemplate(data) {
 
         const imgLikes = document.createElement('span');
         imgLikes.className = "image-likes";
-        imgLikes.textContent = `${currentLikes} `;
+        
+
+        const imgLikesSpan = document.createElement('span');
+        imgLikesSpan.className = "image-likes-span";
+        imgLikesSpan.textContent = `${currentLikes} `;
+
+        imgLikes.appendChild(imgLikesSpan);
 
         const icon = document.createElement('i');
         icon.className = "fa-regular fa-heart";
         icon.setAttribute("aria-label", "Ajouter aux favoris");
         icon.setAttribute("likes", currentLikes);
 
-        let totalLikes = likes;
+        
 
          // Gestionnaire de clic pour l'icône de like
-         icon.addEventListener("click", () => {
+         icon.addEventListener("click", function() {
+            const totalLikesElementSpan = document.querySelector(".total-likes");
+            let totalLikes = parseInt(totalLikesElementSpan.textContent);
+
+            
             if (isLiked) {
               currentLikes--;
               totalLikes--;
-              icon.classList.remove("liked"); // Enlevez la classe "liked" pour afficher le cœur non rempli
+              this.classList.remove("liked"); // Enlevez la classe "liked" pour afficher le cœur non rempli
             } else {
               currentLikes++;
               totalLikes++;
-              icon.classList.add("liked"); // Ajoutez la classe "liked" pour afficher le cœur rempli
+              this.classList.add("liked"); // Ajoutez la classe "liked" pour afficher le cœur rempli
             }
             isLiked = !isLiked;
       
-            imgLikes.textContent = `${currentLikes} `;
-            imgLikes.appendChild(icon); // Réattacher l'icône mise à jour
-      
-            // Mettre à jour le total des likes dans le bas de page
-            document.querySelector(".total_likes").textContent = `${totalLikes}`;
+            imgLikesSpan.textContent = `${currentLikes} `;
+            
+            
+            totalLikesElementSpan.textContent = `${totalLikes} `;
+
         });
 
         imgLikes.appendChild(icon);
