@@ -129,6 +129,7 @@ export function mediaTemplate(data) {
         imgCard.setAttribute("title", title);
         imgCard.setAttribute("date", date);
         imgCard.setAttribute("likes", currentLikes);
+        imgCard.setAttribute("tabindex", 0);
         
         let media;
         if (image) {
@@ -163,6 +164,7 @@ export function mediaTemplate(data) {
         icon.className = "fa-regular fa-heart";
         icon.setAttribute("aria-label", "Ajouter aux favoris");
         icon.setAttribute("likes", currentLikes);
+        icon.setAttribute("tabindex", 0);
 
         
 

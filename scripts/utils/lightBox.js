@@ -14,7 +14,7 @@ export function createLightbox() {
     lightboxClose.className = "close-lightbox";
     lightboxClose.setAttribute("src", "assets/icons/close.svg");
     
-    const lightboxImage = document.createElement("img");
+    const lightboxImage = document.createElement("div");
     lightboxImage.className = "lightbox-content";
     lightboxImage.id = "lightboxImage";
   
@@ -32,10 +32,18 @@ export function createLightbox() {
     
     document.body.appendChild(lightbox);
   
-    
+    showMedia ();
     
   }
   
+  function showMedia () {
+    const lightboxItem = document.createElement ("img");
+    lightboxItem.className = "lightbox-item";
+    lightboxItem.id = "lightboxItem";
+
+    document.getElementById("lightboxImage").appendChild(lightboxItem);
+  }
+
   /**
    * Initializes the lightbox functionality for displaying media in a gallery.
    *
@@ -60,14 +68,16 @@ export function createLightbox() {
      */
     function openLightbox(index) {
       const lightbox = document.getElementById("lightbox");
-      const lightboxImage = document.getElementById("lightboxImage");
-  
+      const lightboxItem = document.getElementById("lightboxItem");
+
       currentMediaIndex = index;
       lightbox.style.display = "block";
-      lightboxImage.src = mediaElements[currentMediaIndex].src;
+      lightboxItem.src = mediaElements[currentMediaIndex].src;
   
       // Ajouter un écouteur pour les touches du clavier
       document.addEventListener("keydown", handleKeydown);
+      
+      document.body.style.overflow = "hidden";
     }
   
   
@@ -81,6 +91,8 @@ export function createLightbox() {
   
       // Enlever le routeur pour les touches du clavier
       document.removeEventListener("keydown", handleKeydown);
+
+      document.body.style.overflow = "auto";
     }
   
     /**
@@ -91,8 +103,9 @@ export function createLightbox() {
     function showNext() {
       // On change le numero de l'index lorsqu'on clique sur le bouton suivant
       currentMediaIndex = (currentMediaIndex + 1) % mediaElements.length;
-      document.getElementById("lightboxImage").src =
+      document.getElementById("lightboxItem").src =
         mediaElements[currentMediaIndex].src;
+
     }
   
     /**
@@ -104,8 +117,9 @@ export function createLightbox() {
       // On change le numero de l'index lorsqu'on clique sur le bouton precedent
       currentMediaIndex =
         (currentMediaIndex - 1 + mediaElements.length) % mediaElements.length;
-      document.getElementById("lightboxImage").src =
+      document.getElementById("lightboxItem").src =
         mediaElements[currentMediaIndex].src;
+
     }
   
     // Gérer les touches fléchées

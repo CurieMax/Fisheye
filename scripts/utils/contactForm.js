@@ -13,6 +13,18 @@ const errors = document.querySelectorAll(".error");
 export function displayModal(photographer) {
   const modal = document.getElementById("contact_modal");
   modal.style.display = "block";
+  modal.setAttribute("tabindex", "0");
+  // Bloquer le scroll de la page
+  document.body.style.overflow = "hidden";
+
+
+  document.addEventListener("keydown", modalKeydown);
+}
+
+function modalKeydown(event) {
+  if (event.key === "Escape") {
+    closeModal();
+  }
 }
 
 /**
@@ -24,6 +36,10 @@ export function closeModal() {
   const modal = document.getElementById("contact_modal");
   modal.style.display = "none";
   form.reset();
+
+  // Relever le scroll de la page
+  document.body.style.overflow = "auto";
+
 }
 
 /**
