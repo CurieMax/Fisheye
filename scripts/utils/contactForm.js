@@ -4,6 +4,7 @@ const lastName = document.getElementById("lastName");
 const email = document.getElementById("mail");
 const message = document.getElementById("message");
 const errors = document.querySelectorAll(".error");
+const body = document.querySelector("body");
 
 /**
  * Displays the contact modal by setting its display style to block.
@@ -15,7 +16,7 @@ export function displayModal(photographer) {
   modal.style.display = "block";
   modal.setAttribute("tabindex", "0");
   // Bloquer le scroll de la page
-  document.body.style.overflow = "hidden";
+  body.style.overflow = "hidden"; 
 
 
   document.addEventListener("keydown", modalKeydown);

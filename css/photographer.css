@@ -225,41 +225,43 @@
   margin-top: 58px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-  width: 105%;
+  gap: 45px;
+  width: 100%;
 }
 
 
 
 .image-card {
-  width: 350px;
-  height: 351px;
+  width: 100%;
+  height: 27em;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
 }
 
 
 .image-card img {
-  width: 350px;
-  height: 300px;
+  width: 80%;
+  height: 25em;
   display: block;
   object-fit: cover;
   border-radius: 5px;
 }
 
 .image-card video {
-  width: 350px;
-  height: 300px;
+  width: 80%;
+  height: 25em;
   display: block;
   object-fit: cover;
   border-radius: 5px;
 }
 
 .image-info {
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
   align-items: center;
