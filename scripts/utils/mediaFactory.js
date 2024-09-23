@@ -1,5 +1,16 @@
 // Classe de base Media
 class Media {
+
+  /**
+   * Initializes a new instance of the Media class.
+   *
+   * @param {object} data - The data object containing media properties.
+   * @param {number} data.id - The unique identifier of the media.
+   * @param {string} data.title - The title of the media.
+   * @param {string} data.date - The date of the media.
+   * @param {number} data.likes - The number of likes for the media.
+   * @return {undefined}
+   */
   constructor(data) {
     this.id = data.id;
     this.title = data.title;
@@ -8,6 +19,12 @@ class Media {
     this.path = `assets/media/`;
   }
 
+
+  /**
+   * Creates a media card element with title, likes, and a like button.
+   *
+   * @return {HTMLElement} The created media card element.
+   */
   createMediaCard() {
     const imgCard = document.createElement("div");
     imgCard.className = "image-card";

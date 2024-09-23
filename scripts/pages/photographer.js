@@ -1,13 +1,11 @@
-import { photographerTemplate } from "../templates/photographer.js";
-import { MediaFactory } from "../utils/mediaFactory.js"; // Assurez-vous que MediaFactory est bien importé depuis son fichier
+import {
+  mediaTemplate,
+  photographerTemplate,
+} from "../templates/photographer.js";
 import { closeModal, displayModal } from "../utils/contactForm.js";
-import { createLightbox, lightbox } from "../utils/lightBox.js";
+import { createLightbox, lightbox} from "../utils/lightBox.js";
 
-// Fonction pour générer les médias à partir de la MediaFactory
-export function mediaTemplate(data) {
-  const media = MediaFactory.createMedia(data);
-  return media.getMediaDOM(); // Retourne le DOM du média (image ou vidéo)
-}
+
 
 function closeBtn() {
   document.querySelector(".close").addEventListener("click", () => {
@@ -237,6 +235,7 @@ async function init() {
   closeBtn();
   createLightbox();
   lightbox();
+  
 }
 
 init();
