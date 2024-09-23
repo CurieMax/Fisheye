@@ -183,35 +183,39 @@ function getPhotographersIdFromUrl() {
 function filterMedia(items, sortBy) {
   items.sort((a, b) => {
     if (sortBy === "popularity") {
-      return (
-        parseInt(b.getAttribute("likes")) - parseInt(a.getAttribute("likes"))
-      );
+      return b.likes - a.likes;
     } else if (sortBy === "date") {
-      return (
-        new Date(b.getAttribute("date")) - new Date(a.getAttribute("date"))
-      );
+      return new Date(b.date) - new Date(a.date);
     } else if (sortBy === "title") {
-      return a
-        .getAttribute("title")
-        .localeCompare(b.getAttribute("title"), "fr", { sensitivity: "base" }); // ignore upper and lowercase
+      return a.title.localeCompare(b.title, "fr", { sensitivity: "base" });
     }
   });
 
   return items;
 }
 
-document.getElementById("sortMedia").addEventListener("change", function () {
-  // Use for collect the value
-  // 'this' is the select element
-  const sortBy = this.value;
-  // choose gallery
-  const gallery = document.querySelector(".gallery");
-  // create an array
-  const items = Array.from(gallery.children);
+function setupSortBy(medias) {
+  document.getElementById("sortMedia").addEventListener("change", function () {
+    const sortBy = this.value;
 
-  let orderItems = filterMedia(items, sortBy);
-  orderItems.forEach((item) => gallery.appendChild(item));
-});
+    // Trier les médias en fonction du critère sélectionné
+    const sortedMedias = filterMedia(medias, sortBy);
+
+    // Sélectionner la galerie et la vider
+    const gallery = document.querySelector(".gallery");
+    gallery.innerHTML = "";  // Vider la galerie
+
+    // Réafficher les médias triés
+    sortedMedias.forEach((media) => {
+      const mediaDOM = mediaTemplate(media);
+      gallery.appendChild(mediaDOM);
+    });
+
+    // Reconfigurer la lightbox après le tri
+    createLightbox();
+    lightbox();
+  });
+}
 
 /**
  * Initializes the function by retrieving the photographer's ID from the URL,
@@ -233,6 +237,7 @@ async function init() {
 
   openModal();
   closeBtn();
+  setupSortBy(medias);
   createLightbox();
   lightbox();
   

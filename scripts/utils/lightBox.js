@@ -154,7 +154,7 @@ export function lightbox() {
   document.querySelector(".next").addEventListener("click", showNext);
   document.querySelector(".prev").addEventListener("click", showPrevious);
 
-  setupMediaForLightbox();
+  
 
   /**
    * Sets up event listeners for media elements in the gallery to open the lightbox when clicked or when the Enter key is pressed.
@@ -175,4 +175,5 @@ export function lightbox() {
       });
     });
   }
+  setupMediaForLightbox();
 }
