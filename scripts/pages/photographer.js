@@ -1,9 +1,13 @@
-import {
-  mediaTemplate,
-  photographerTemplate,
-} from "../templates/photographer.js";
+import { photographerTemplate } from "../templates/photographer.js";
+import { MediaFactory } from "../utils/mediaFactory.js"; // Assurez-vous que MediaFactory est bien importé depuis son fichier
 import { closeModal, displayModal } from "../utils/contactForm.js";
 import { createLightbox, lightbox } from "../utils/lightBox.js";
+
+// Fonction pour générer les médias à partir de la MediaFactory
+export function mediaTemplate(data) {
+  const media = MediaFactory.createMedia(data);
+  return media.getMediaDOM(); // Retourne le DOM du média (image ou vidéo)
+}
 
 function closeBtn() {
   document.querySelector(".close").addEventListener("click", () => {
@@ -99,8 +103,6 @@ async function getMedias(id) {
   };
 }
 
-
-
 /**
  * Displays the media data in the gallery section of the page.
  *
@@ -110,39 +112,56 @@ async function getMedias(id) {
 async function displayMediasData(medias) {
   const mediaSection = document.querySelector(".gallery");
 
-  // initialise le total des likes
+  // Initialise le total des likes
   let totalLikes = 0;
 
-  // Afficher les medias
+  // Afficher les médias
   medias.forEach((media) => {
-    const mediaModel = mediaTemplate(media);
-    const imgCard = mediaModel.getMediaCardDOM();
-    mediaSection.appendChild(imgCard);
+    const mediaDOM = mediaTemplate(media);
+    mediaSection.appendChild(mediaDOM);
 
-    // Mettre à jour le total des likes
+    // Mettre à jour le total des likes initial
     totalLikes += media.likes;
-    
   });
 
-  
   // Ajouter le total des likes dans le bas de page
-
   const bottomSection = document.querySelector(".bottom_info");
+
+  // Créer un élément pour afficher le total des likes
   const totalLikesElement = document.createElement("div");
   totalLikesElement.className = "total_likes";
-  bottomSection.appendChild(totalLikesElement);
 
   const totalLikesSpan = document.createElement("span");
   totalLikesSpan.textContent = `${totalLikes}`;
   totalLikesSpan.className = "total-likes";
-  totalLikesElement.appendChild(totalLikesSpan);
 
-  
+  totalLikesElement.appendChild(totalLikesSpan);
 
   const icon = document.createElement("i");
   icon.className = "fa-solid fa-heart";
   icon.setAttribute("aria-label", "Ajouter aux favoris");
   totalLikesElement.appendChild(icon);
+
+  bottomSection.appendChild(totalLikesElement);
+
+  // Mettre à jour le compteur total lorsqu'on clique sur les likes individuels
+  document.querySelectorAll(".fa-heart").forEach((heartIcon, index) => {
+    heartIcon.addEventListener("click", () => {
+      // Récupérer le nombre de likes de l'élément cliqué
+      const mediaLikesElement = medias[index].likes;
+
+      if (!heartIcon.classList.contains("liked")) {
+        totalLikes--;
+        heartIcon.classList.remove("liked");
+      } else {
+        totalLikes++;
+        heartIcon.classList.add("liked");
+      }
+
+      // Mettre à jour le texte du total des likes en bas de page
+      totalLikesSpan.textContent = `${totalLikes}`;
+    });
+  });
 }
 
 /**
@@ -154,6 +173,14 @@ function getPhotographersIdFromUrl() {
   const url = new URLSearchParams(window.location.search);
   return parseInt(url.get("id")); // Retourne l'ID en tant q'entier
 }
+
+/**
+ * Sorts an array of media items based on the specified criteria.
+ *
+ * @param {Array} items - The array of media items to be sorted.
+ * @param {string} sortBy - The criteria to sort the media items by. Can be "popularity", "date", or "title".
+ * @return {Array} The sorted array of media items.
+ */
 
 function filterMedia(items, sortBy) {
   items.sort((a, b) => {
@@ -187,8 +214,6 @@ document.getElementById("sortMedia").addEventListener("change", function () {
   let orderItems = filterMedia(items, sortBy);
   orderItems.forEach((item) => gallery.appendChild(item));
 });
-
-
 
 /**
  * Initializes the function by retrieving the photographer's ID from the URL,

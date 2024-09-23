@@ -1,166 +1,178 @@
 /**
  * Creates a lightbox element and appends it to the document body.
- * The lightbox includes a close button, a content area, and navigation controls.
  *
- * @return {void} This function does not return a value.
+ * @return {void}
  */
 export function createLightbox() {
+  const lightbox = document.createElement("div");
+  lightbox.className = "lightbox";
+  lightbox.id = "lightbox";
 
-    const lightbox = document.createElement("div");
-    lightbox.className = "lightbox";
-    lightbox.id = "lightbox";
-  
-    const lightboxClose = document.createElement("img");
-    lightboxClose.className = "close-lightbox";
-    lightboxClose.setAttribute("src", "assets/icons/close.svg");
-    
-    const lightboxImage = document.createElement("div");
-    lightboxImage.className = "lightbox-content";
-    lightboxImage.id = "lightboxImage";
-  
-    const lightboxPrev = document.createElement("a");
-    lightboxPrev.className = "prev";
-    lightboxPrev.textContent = "<";
-    const lightboxNext = document.createElement("a");
-    lightboxNext.className = "next";
-    lightboxNext.textContent = ">";
-  
-    lightbox.appendChild(lightboxClose);
-    lightbox.appendChild(lightboxImage);
-    lightbox.appendChild(lightboxPrev);
-    lightbox.appendChild(lightboxNext);
-    
-    document.body.appendChild(lightbox);
-  
-    showMedia ();
-    
-  }
-  
-  function showMedia () {
-    const lightboxItem = document.createElement ("img");
-    lightboxItem.className = "lightbox-item";
-    lightboxItem.id = "lightboxItem";
+  const lightboxClose = document.createElement("img");
+  lightboxClose.className = "close-lightbox";
+  lightboxClose.setAttribute("src", "assets/icons/close.svg");
 
-    document.getElementById("lightboxImage").appendChild(lightboxItem);
+  const lightboxImage = document.createElement("div");
+  lightboxImage.className = "lightbox-content";
+  lightboxImage.id = "lightboxImage";
+
+  const lightboxPrev = document.createElement("a");
+  lightboxPrev.className = "prev";
+  lightboxPrev.textContent = "<";
+  const lightboxNext = document.createElement("a");
+  lightboxNext.className = "next";
+  lightboxNext.textContent = ">";
+
+  lightbox.appendChild(lightboxClose);
+  lightbox.appendChild(lightboxImage);
+  lightbox.appendChild(lightboxPrev);
+  lightbox.appendChild(lightboxNext);
+
+  document.body.appendChild(lightbox);
+
+  showMedia();
+}
+
+/**
+ * Creates and appends a lightbox item to the lightbox image container.
+ *
+ * @return {void}
+ */
+function showMedia() {
+  const lightboxItem = document.createElement("img");
+  lightboxItem.className = "lightbox-item";
+  lightboxItem.id = "lightboxItem";
+
+  document.getElementById("lightboxImage").appendChild(lightboxItem);
+}
+
+/**
+ * Initializes and sets up the lightbox functionality, including event listeners and media handling.
+ *
+ * @return {void}
+ */
+export function lightbox() {
+  let currentMediaIndex = 0;
+  let mediaElements = [];
+
+  /**
+   * Opens the lightbox and displays the media element at the specified index.
+   *
+   * @param {number} index - The index of the media element to display.
+   * @return {void}
+   */
+  function openLightbox(index) {
+    const lightbox = document.getElementById("lightbox");
+    const lightboxContainer = document.getElementById("lightboxImage");
+
+    currentMediaIndex = index;
+    lightboxContainer.innerHTML = ""; // Effacer le contenu précédent
+
+    const mediaElement = mediaElements[currentMediaIndex];
+
+    if (mediaElement.tagName === "VIDEO") {
+      const video = mediaElement.cloneNode(true);
+      video.controls = true;
+      video.play();
+      lightboxContainer.appendChild(video);
+    } else if (mediaElement.tagName === "IMG") {
+      const img = mediaElement.cloneNode(true);
+      lightboxContainer.appendChild(img);
+    }
+
+    lightbox.style.display = "block";
+    document.addEventListener("keydown", handleKeydown);
+    document.body.style.overflow = "hidden";
   }
 
   /**
-   * Initializes the lightbox functionality for displaying media in a gallery.
+   * Closes the lightbox and resets the page to its original state.
    *
-   * This function sets up the necessary event listeners and variables for the lightbox
-   * to work properly. It also defines functions for opening, closing, and navigating
-   * through the lightbox images. The `setupMediaForLightbox` function is called to
-   * attach click event listeners to each image in the gallery, so that when an
-   * image is clicked, the corresponding lightbox image is displayed.
-   *
-   * @return {void} This function does not return anything.
+   * @return {void}
    */
-  export function lightbox() {
-    // Ajouter les fonctionnalités de la lightbox
-    let currentMediaIndex = 0;
-    let mediaElements = [];
-  
-    /**
-     * Opens the lightbox and displays the media at the specified index.
-     *
-     * @param {number} index - The index of the media to display in the lightbox.
-     * @return {void} This function does not return anything.
-     */
-    function openLightbox(index) {
-      const lightbox = document.getElementById("lightbox");
-      const lightboxItem = document.getElementById("lightboxItem");
+  function closeLightbox() {
+    const lightbox = document.getElementById("lightbox");
+    const video = document.querySelector(".lightbox-content video");
 
-      currentMediaIndex = index;
-      lightbox.style.display = "block";
-      lightboxItem.src = mediaElements[currentMediaIndex].src;
-  
-      // Ajouter un écouteur pour les touches du clavier
-      document.addEventListener("keydown", handleKeydown);
-      
-      document.body.style.overflow = "hidden";
+    if (video) {
+      video.pause();
     }
-  
-  
-    /**
-     * Closes the lightbox by hiding it from the user's view.
-     *
-     * @return {void} This function does not return anything.
-     */
-    function closeLightbox() {
-      document.getElementById("lightbox").style.display = "none";
-  
-      // Enlever le routeur pour les touches du clavier
-      document.removeEventListener("keydown", handleKeydown);
 
-      document.body.style.overflow = "auto";
-    }
-  
-    /**
-     * Displays the next media item in the lightbox by incrementing the current media index.
-     *
-     * @return {void} This function does not return anything.
-     */
-    function showNext() {
-      // On change le numero de l'index lorsqu'on clique sur le bouton suivant
-      currentMediaIndex = (currentMediaIndex + 1) % mediaElements.length;
-      document.getElementById("lightboxItem").src =
-        mediaElements[currentMediaIndex].src;
-
-    }
-  
-    /**
-     * Displays the previous media item in the lightbox by decrementing the current media index.
-     *
-     * @return {void} This function does not return anything.
-     */
-    function showPrevious() {
-      // On change le numero de l'index lorsqu'on clique sur le bouton precedent
-      currentMediaIndex =
-        (currentMediaIndex - 1 + mediaElements.length) % mediaElements.length;
-      document.getElementById("lightboxItem").src =
-        mediaElements[currentMediaIndex].src;
-
-    }
-  
-    // Gérer les touches fléchées
-    function handleKeydown(event) {
-      if (event.key === "ArrowRight") {
-        showNext(); // Flèche droite pour l'élément suivant
-      } else if (event.key === "ArrowLeft") {
-        showPrevious(); // Flèche gauche pour l'élément précédent
-      } else if (event.key === "Escape") {
-        closeLightbox(); // Touche "Escape" pour fermer la lightbox
-      }
-    }
-  
-    document
-      .querySelector(".close-lightbox")
-      .addEventListener("click", closeLightbox);
-    document.querySelector(".next").addEventListener("click", showNext);
-    document.querySelector(".prev").addEventListener("click", showPrevious);
-  
-    /**
-     * Sets up media elements in the gallery for lightbox functionality.
-     *
-     * @return {void} This function does not return anything.
-     */
-    function setupMediaForLightbox() {
-      // On récupère les medias et lorsqu'on clique sur une image, on ouvre la lightbox
-      mediaElements = Array.from(document.querySelectorAll(".gallery img"));
-      mediaElements.forEach((img,  index) => {
-        // Ouverture au clic sur l'image
-        img.addEventListener("click", () => openLightbox(index));
-      });
-
-      mediaElements.forEach((img, index) => {
-        // Ouverture au clavier sur l'image
-        img.addEventListener("keydown", (event) => {
-          if (event.key === "Enter") {
-            openLightbox(index);
-          }
-        });
-      });
-    }
-  
-    setupMediaForLightbox();
+    lightbox.style.display = "none";
+    document.removeEventListener("keydown", handleKeydown);
+    document.body.style.overflow = "auto";
   }
+
+  /**
+   * Moves to the next media element in the lightbox and opens it.
+   *
+   * @return {void} This function does not return a value.
+   */
+  function showNext() {
+    const video = document.querySelector(".lightbox-content video");
+    if (video) {
+      video.pause();
+    }
+    currentMediaIndex = (currentMediaIndex + 1) % mediaElements.length;
+    openLightbox(currentMediaIndex);
+  }
+
+  /**
+   * Moves to the previous media element in the lightbox and opens it.
+   *
+   * @return {void} This function does not return a value.
+   */
+  function showPrevious() {
+    const video = document.querySelector(".lightbox-content video");
+    if (video) {
+      video.pause();
+    }
+    currentMediaIndex =
+      (currentMediaIndex - 1 + mediaElements.length) % mediaElements.length;
+    openLightbox(currentMediaIndex);
+  }
+
+  /**
+   * Handles keydown events in the lightbox.
+   *
+   * @param {KeyboardEvent} event - The keyboard event object.
+   * @return {void} This function does not return a value.
+   */
+  function handleKeydown(event) {
+    if (event.key === "ArrowRight") {
+      showNext();
+    } else if (event.key === "ArrowLeft") {
+      showPrevious();
+    } else if (event.key === "Escape") {
+      closeLightbox();
+    }
+  }
+
+  document
+    .querySelector(".close-lightbox")
+    .addEventListener("click", closeLightbox);
+  document.querySelector(".next").addEventListener("click", showNext);
+  document.querySelector(".prev").addEventListener("click", showPrevious);
+
+  setupMediaForLightbox();
+
+  /**
+   * Sets up event listeners for media elements in the gallery to open the lightbox when clicked or when the Enter key is pressed.
+   *
+   * @return {void} This function does not return a value.
+   */
+  function setupMediaForLightbox() {
+    mediaElements = Array.from(
+      document.querySelectorAll(".gallery img, .gallery video")
+    );
+
+    mediaElements.forEach((media, index) => {
+      media.addEventListener("click", () => openLightbox(index));
+      media.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          openLightbox(index);
+        }
+      });
+    });
+  }
+}

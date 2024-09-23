@@ -1,3 +1,5 @@
+import { MediaFactory } from "../utils/mediaFactory.js";
+
 /**
  * Creates a template for a photographer's profile.
  *
@@ -122,92 +124,9 @@ export function photographerTemplate(data) {
 }
 
 export function mediaTemplate(data) {
-  const { id, title, image, video, date, price, likes } = data;
-  const path = `assets/media/`;
-  const link = `photographer.html?id=${id}`;
-  let isLiked = false;
-  let currentLikes = likes;
-
-  function getMediaCardDOM() {
-    const imgCard = document.createElement("div");
-    imgCard.className = "image-card";
-    imgCard.setAttribute("id", id);
-    imgCard.setAttribute("title", title);
-    imgCard.setAttribute("date", date);
-    imgCard.setAttribute("likes", currentLikes);
-
-    let media;
-    if (image) {
-      media = document.createElement("img");
-      media.className = "gallery-item";
-      media.setAttribute("src", path + image);
-      media.setAttribute("alt", title);
-      media.setAttribute("tabindex", 0);
-    } else {
-      media = document.createElement("video");
-      media.className = "gallery-item";
-      media.setAttribute("src", path + video);
-      media.setAttribute("tabindex", 0);
-    }
-
-    const imgInfo = document.createElement("div");
-    imgInfo.className = "image-info";
-
-    const imgTitle = document.createElement("span");
-    imgTitle.className = "image-title";
-    imgTitle.textContent = title;
-
-    const imgLikes = document.createElement("span");
-    imgLikes.className = "image-likes";
-
-    const imgLikesSpan = document.createElement("span");
-    imgLikesSpan.className = "image-likes-span";
-    imgLikesSpan.textContent = `${currentLikes} `;
-
-    imgLikes.appendChild(imgLikesSpan);
-
-    const icon = document.createElement("i");
-    icon.className = "fa-regular fa-heart";
-    icon.setAttribute("aria-label", "Ajouter aux favoris");
-    icon.setAttribute("likes", currentLikes);
-    icon.setAttribute("tabindex", 0);
-
-    // Fonction qui gère le clic ou l'appui sur "Entrée"
-    function toggleLike() {
-      const totalLikesElementSpan = document.querySelector(".total-likes");
-      let totalLikes = parseInt(totalLikesElementSpan.textContent);
-
-      if (isLiked) {
-        currentLikes--;
-        totalLikes--;
-        icon.classList.remove("liked"); // Enlevez la classe "liked" pour afficher le cœur non rempli
-      } else {
-        currentLikes++;
-        totalLikes++;
-        icon.classList.add("liked"); // Ajoutez la classe "liked" pour afficher le cœur rempli
-      }
-      isLiked = !isLiked;
-
-      imgLikesSpan.textContent = `${currentLikes} `;
-      totalLikesElementSpan.textContent = `${totalLikes} `;
-    }
-
-    // Ajoutez l'écouteur pour le clic
-    icon.addEventListener("click", toggleLike);
-
-    // Ajoutez l'écouteur pour l'appui sur la touche "Entrée"
-    icon.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        toggleLike();
-      }
-    });
-
-    imgLikes.appendChild(icon);
-    imgInfo.appendChild(imgTitle);
-    imgInfo.appendChild(imgLikes);
-    imgCard.appendChild(media);
-    imgCard.appendChild(imgInfo);
-    return imgCard;
-  }
-  return { id, title, link, date, price, likes, getMediaCardDOM };
-}
+   // Utilise la MediaFactory pour créer un média (image ou vidéo)
+   const media = MediaFactory.createMedia(data);
+  
+   // Retourne l'élément DOM du média généré
+   return media.getMediaDOM();
+ }  
