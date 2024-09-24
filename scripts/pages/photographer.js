@@ -3,13 +3,16 @@ import {
   photographerTemplate,
 } from "../templates/photographer.js";
 import { closeModal, displayModal } from "../utils/contactForm.js";
-import { createLightbox, lightbox} from "../utils/lightBox.js";
-
-
+import { createLightbox, lightbox } from "../utils/lightBox.js";
 
 function closeBtn() {
   document.querySelector(".close").addEventListener("click", () => {
     closeModal();
+  });
+  document.querySelector(".close").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      closeModal();
+    }
   });
 }
 
@@ -25,16 +28,14 @@ function openModal() {
  * @returns
  */
 async function getPhotographers(id) {
-  // On recherche le fichier JSON
   const url = "data/photographers.json";
 
-  // On demande d'attendre la reponse
   const response = await fetch(url);
-  // On récupère les datas
+
   const data = await response.json();
-  // On récupère les photographes
+
   const { photographers } = data;
-  // On filtre les photographes correspondant à l'id recherché
+
   const photographer = photographers.find(
     (photographer) => photographer.id === id
   );
@@ -57,7 +58,6 @@ async function displayData(photographer) {
   const photographerModel = photographerTemplate(photographer);
   const { photographInfo, idPhoto } = photographerModel.getUserCardSolo();
 
-  // Create contact button
   const contactButton = document.createElement("button");
   contactButton.className = "contact_button";
   contactButton.textContent = "Contactez-moi";
@@ -65,12 +65,10 @@ async function displayData(photographer) {
   addNameOnTitle.textContent = `Contactez-moi ${photographer.name}`;
   document.querySelector(".contact_title").appendChild(addNameOnTitle);
 
-  // Ajouter la carte du photographe à la page
   photographersSection.appendChild(photographInfo);
   photographersSection.appendChild(contactButton);
   photographersSection.appendChild(idPhoto);
 
-  // Ajout de l'information du prix du photographe
   const bottomSection = document.querySelector(".bottom_info");
 
   const totalPrice = document.createElement("div");
@@ -86,15 +84,14 @@ async function displayData(photographer) {
  * @return {Object} An object containing an array of media objects associated with the photographer.
  */
 async function getMedias(id) {
-  // On recherche le fichier JSON
   const url = "data/photographers.json";
-  // On demande d'attendre la reponse
+
   const response = await fetch(url);
-  // On récupère les datas
+
   const data = await response.json();
-  // On récupère les medias
+
   const { media } = data;
-  // On filtre les medias correspondant à l'id recherché
+
   const medias = media.filter((media) => media.photographerId === id);
   return {
     medias: medias,
@@ -110,10 +107,8 @@ async function getMedias(id) {
 async function displayMediasData(medias) {
   const mediaSection = document.querySelector(".gallery");
 
-  // Initialise le total des likes
   let totalLikes = 0;
 
-  // Afficher les médias
   medias.forEach((media) => {
     const mediaDOM = mediaTemplate(media);
     mediaSection.appendChild(mediaDOM);
@@ -125,9 +120,15 @@ async function displayMediasData(medias) {
   // Ajouter le total des likes dans le bas de page
   const bottomSection = document.querySelector(".bottom_info");
 
-  // Créer un élément pour afficher le total des likes
-  const totalLikesElement = document.createElement("div");
-  totalLikesElement.className = "total_likes";
+  // Vérifie s'il existe déjà un élément "total_likes"
+  let totalLikesElement = document.querySelector(".total_likes");
+  if (!totalLikesElement) {
+    totalLikesElement = document.createElement("div");
+    totalLikesElement.className = "total_likes";
+    bottomSection.appendChild(totalLikesElement);
+  } else {
+    totalLikesElement.innerHTML = ""; // Vide le contenu actuel pour le mettre à jour
+  }
 
   const totalLikesSpan = document.createElement("span");
   totalLikesSpan.textContent = `${totalLikes}`;
@@ -158,6 +159,11 @@ async function displayMediasData(medias) {
 
       // Mettre à jour le texte du total des likes en bas de page
       totalLikesSpan.textContent = `${totalLikes}`;
+    });
+    heartIcon.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        heartIcon.click();
+      }
     });
   });
 }
@@ -203,13 +209,10 @@ function setupSortBy(medias) {
 
     // Sélectionner la galerie et la vider
     const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = "";  // Vider la galerie
+    gallery.innerHTML = ""; // Vider la galerie
 
     // Réafficher les médias triés
-    sortedMedias.forEach((media) => {
-      const mediaDOM = mediaTemplate(media);
-      gallery.appendChild(mediaDOM);
-    });
+    displayMediasData(sortedMedias);
 
     // Reconfigurer la lightbox après le tri
     createLightbox();
@@ -240,7 +243,6 @@ async function init() {
   setupSortBy(medias);
   createLightbox();
   lightbox();
-  
 }
 
 init();
