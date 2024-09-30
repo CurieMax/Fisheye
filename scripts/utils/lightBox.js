@@ -79,6 +79,7 @@ export function lightbox() {
       lightboxContainer.appendChild(img);
     }
 
+    
     lightbox.style.display = "block";
     document.addEventListener("keydown", handleKeydown);
     document.body.style.overflow = "hidden";
