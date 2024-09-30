@@ -28,11 +28,10 @@ export function photographerTemplate(data) {
    * @return {HTMLElement} The DOM element representing the photographer's profile card.
    */
   function getUserCardDOM() {
-    // Création élément <a> pour envelopper l'article et le rendre cliquable
     const link = document.createElement("a");
-    // URL de déstination pour le lien en utilisant l'id du photographe
+
     link.setAttribute("href", "photographer.html?id=" + data.id);
-    // Accessibilité
+    // Accessibility
     link.setAttribute("aria-label", "Voir le profil de" + name);
     const article = document.createElement("article");
     const idPhoto = document.createElement("span");
@@ -58,16 +57,12 @@ export function photographerTemplate(data) {
     p.appendChild(tagline);
     p.appendChild(price);
 
-    // Ajouter les éléments au contenu de l'article
-
     article.appendChild(idPhoto);
     article.appendChild(h2);
     article.appendChild(p);
 
-    // Placez l'article dans le lien
     link.appendChild(article);
 
-    // Retourner le lien
     return link;
   }
 
@@ -75,11 +70,9 @@ export function photographerTemplate(data) {
     const photographInfo = document.createElement("div");
     photographInfo.className = "photograph_info";
 
-    // Titre du photographe
     const h2 = document.createElement("h2");
     h2.textContent = name;
 
-    // Création des éléments de localisation et de tagline
     const p = document.createElement("p");
     const localisation = document.createElement("span");
     const tag = document.createElement("span");
@@ -87,19 +80,15 @@ export function photographerTemplate(data) {
     localisation.textContent = `${city}, ${country}`;
     tag.textContent = tagline;
 
-    // Ajout des classes pour le style
     localisation.className = "location";
     tag.className = "tagline";
 
-    // Ajout des éléments dans le paragraphe
     p.appendChild(localisation);
     p.appendChild(tag);
 
-    // Ajout du titre et du paragraphe dans le conteneur info
     photographInfo.appendChild(h2);
     photographInfo.appendChild(p);
 
-    // Création de l'image de profil
     const idPhoto = document.createElement("div");
     idPhoto.className = "photographer_photo";
     const img = document.createElement("img");
@@ -107,7 +96,6 @@ export function photographerTemplate(data) {
     img.setAttribute("alt", `Portrait de ${name}`);
     idPhoto.appendChild(img);
 
-    // Retourne les éléments créés
     return { photographInfo, idPhoto };
   }
 
@@ -124,9 +112,7 @@ export function photographerTemplate(data) {
 }
 
 export function mediaTemplate(data) {
-   // Utilise la MediaFactory pour créer un média (image ou vidéo)
-   const media = MediaFactory.createMedia(data);
-  
-   // Retourne l'élément DOM du média généré
-   return media.getMediaDOM();
- }  
+  const media = MediaFactory.createMedia(data);
+
+  return media.getMediaDOM();
+}

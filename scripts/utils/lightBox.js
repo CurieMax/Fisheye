@@ -11,6 +11,7 @@ export function createLightbox() {
   const lightboxClose = document.createElement("img");
   lightboxClose.className = "close-lightbox";
   lightboxClose.setAttribute("src", "assets/icons/close.svg");
+  lightboxClose.setAttribute("alt", "Close lightbox");
 
   const lightboxImage = document.createElement("div");
   lightboxImage.className = "lightbox-content";
@@ -29,8 +30,6 @@ export function createLightbox() {
   lightbox.appendChild(lightboxNext);
 
   document.body.appendChild(lightbox);
-
-  showMedia();
 }
 
 /**
@@ -66,7 +65,7 @@ export function lightbox() {
     const lightboxContainer = document.getElementById("lightboxImage");
 
     currentMediaIndex = index;
-    lightboxContainer.innerHTML = ""; // Effacer le contenu précédent
+    lightboxContainer.innerHTML = ""; // Delete all existing media elements
 
     const mediaElement = mediaElements[currentMediaIndex];
 
@@ -153,8 +152,6 @@ export function lightbox() {
     .addEventListener("click", closeLightbox);
   document.querySelector(".next").addEventListener("click", showNext);
   document.querySelector(".prev").addEventListener("click", showPrevious);
-
-  
 
   /**
    * Sets up event listeners for media elements in the gallery to open the lightbox when clicked or when the Enter key is pressed.
