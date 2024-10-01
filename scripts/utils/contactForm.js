@@ -7,6 +7,7 @@ const errors = document.querySelectorAll(".error");
 const body = document.querySelector("body");
 const main = document.getElementById("main");
 const closeImg = document.querySelector(".close");
+const header = document.querySelector("header");
 /**
  * Displays the contact modal by setting its display style to block.
  *
@@ -20,7 +21,7 @@ export function displayModal(photographer) {
   body.style.overflow = "hidden"; 
 
   closeImg.setAttribute("tabindex", "0");
-
+  header.setAttribute("tabindex", "-1");
   
   // passer la navigation du modal en priorité
   modal.focus();
@@ -53,6 +54,7 @@ export function closeModal() {
   // Relever le scroll de la page
   document.body.style.overflow = "auto";
 
+  header.setAttribute("tabindex", "0");
   document.removeEventListener("keydown", modalKeydown);
 
 }

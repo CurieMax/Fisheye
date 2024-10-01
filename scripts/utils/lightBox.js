@@ -69,15 +69,22 @@ export function lightbox() {
 
     const mediaElement = mediaElements[currentMediaIndex];
 
+    const titleElement = document.createElement("h2");
+    titleElement.className = "lightbox-title";
+
     if (mediaElement.tagName === "VIDEO") {
       const video = mediaElement.cloneNode(true);
       video.controls = true;
       video.play();
       lightboxContainer.appendChild(video);
+      titleElement.textContent = mediaElement.getAttribute("data-title");
     } else if (mediaElement.tagName === "IMG") {
       const img = mediaElement.cloneNode(true);
       lightboxContainer.appendChild(img);
+      titleElement.textContent = mediaElement.getAttribute("alt");
     }
+
+    lightboxContainer.appendChild(titleElement);
 
     
     lightbox.style.display = "block";

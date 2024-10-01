@@ -328,11 +328,17 @@
 
 .lightbox-title {
   position: absolute;
-  top: 10px;
-  left: 25px;
+  bottom: 0em; /* Ajustez cette valeur pour avoir l'espacement souhaité */
+  left: 50%;
+  transform: translateX(-50%); /* Centrer le texte horizontalement */
   color: white;
   font-size: 24px;
   font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5); /* Optionnel : ajouter un fond semi-transparent */
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .gallery-item {
@@ -342,15 +348,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   height: 80%;
-}
-
-.lightbox-item-title {
-  position: absolute;
-  top: 10px;
-  left: 25px;
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
 }
 
 .close-lightbox {

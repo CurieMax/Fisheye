@@ -113,6 +113,12 @@ async function displayMediasData(medias) {
     const mediaDOM = mediaTemplate(media);
     mediaSection.appendChild(mediaDOM);
 
+    const mediaElement = mediaDOM.querySelector("img, video");
+    mediaElement.setAttribute("alt", media.title); // For images
+    mediaElement.setAttribute("data-title", media.title); // For videos
+
+    mediaSection.appendChild(mediaDOM);
+
     // Mettre à jour le total des likes initial
     totalLikes += media.likes;
   });
