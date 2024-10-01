@@ -10,8 +10,9 @@ export function createLightbox() {
 
   const lightboxClose = document.createElement("img");
   lightboxClose.className = "close-lightbox";
-  lightboxClose.setAttribute("src", "assets/icons/close.svg");
+  lightboxClose.setAttribute("src", "assets/icons/close-lightbox.svg");
   lightboxClose.setAttribute("alt", "Close lightbox");
+  lightboxClose.setAttribute("tabindex", 0);
 
   const lightboxImage = document.createElement("div");
   lightboxImage.className = "lightbox-content";
@@ -20,9 +21,11 @@ export function createLightbox() {
   const lightboxPrev = document.createElement("a");
   lightboxPrev.className = "prev";
   lightboxPrev.textContent = "<";
+  lightboxPrev.setAttribute("tabindex", 0);
   const lightboxNext = document.createElement("a");
   lightboxNext.className = "next";
   lightboxNext.textContent = ">";
+  lightboxNext.setAttribute("tabindex", 0);
 
   lightbox.appendChild(lightboxClose);
   lightbox.appendChild(lightboxImage);
@@ -153,6 +156,7 @@ export function lightbox() {
     } else if (event.key === "Escape") {
       closeLightbox();
     }
+
   }
 
   document
