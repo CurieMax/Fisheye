@@ -19,6 +19,7 @@ function closeBtn() {
 function openModal() {
   document.querySelector(".contact_button").addEventListener("click", () => {
     displayModal();
+    document.getElementById("firstName").focus();
   });
 }
 

@@ -55,7 +55,7 @@ class Media {
     icon.setAttribute("likes", this.likes);
     icon.setAttribute("tabindex", 0);
     icon.setAttribute("role", "button");
-
+    
     let isLiked = false;
     let currentLikes = this.likes;
 
@@ -63,9 +63,11 @@ class Media {
       if (isLiked) {
         currentLikes--;
         icon.classList.remove("liked");
+        icon.setAttribute("aria-label", "Retirer des favoris");
       } else {
         currentLikes++;
         icon.classList.add("liked");
+        icon.setAttribute("aria-label", "Ajouter aux favoris");
       }
       imgLikesSpan.textContent = `${currentLikes} `;
       isLiked = !isLiked;

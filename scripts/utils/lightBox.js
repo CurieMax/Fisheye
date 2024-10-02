@@ -1,3 +1,5 @@
+const main = document.getElementById("main");
+const header = document.querySelector("header");
 /**
  * Creates a lightbox element and appends it to the document body.
  *
@@ -7,6 +9,9 @@ export function createLightbox() {
   const lightbox = document.createElement("div");
   lightbox.className = "lightbox";
   lightbox.id = "lightbox";
+  lightbox.setAttribute("role", "dialog");
+  lightbox.setAttribute("aria-modal", "true");
+  lightbox.setAttribute("aria-labelledby", "lightboxImage");
 
   const lightboxClose = document.createElement("img");
   lightboxClose.className = "close-lightbox";
@@ -21,10 +26,12 @@ export function createLightbox() {
   const lightboxPrev = document.createElement("a");
   lightboxPrev.className = "prev";
   lightboxPrev.textContent = "<";
+  lightboxPrev.setAttribute("aria-label", "Image précédente");
   lightboxPrev.setAttribute("tabindex", 0);
   const lightboxNext = document.createElement("a");
   lightboxNext.className = "next";
   lightboxNext.textContent = ">";
+  lightboxNext.setAttribute("aria-label", "Image suivante");
   lightboxNext.setAttribute("tabindex", 0);
 
   lightbox.appendChild(lightboxClose);
@@ -36,19 +43,6 @@ export function createLightbox() {
 }
 
 /**
- * Creates and appends a lightbox item to the lightbox image container.
- *
- * @return {void}
- */
-function showMedia() {
-  const lightboxItem = document.createElement("img");
-  lightboxItem.className = "lightbox-item";
-  lightboxItem.id = "lightboxItem";
-
-  document.getElementById("lightboxImage").appendChild(lightboxItem);
-}
-
-/**
  * Initializes and sets up the lightbox functionality, including event listeners and media handling.
  *
  * @return {void}
@@ -56,6 +50,36 @@ function showMedia() {
 export function lightbox() {
   let currentMediaIndex = 0;
   let mediaElements = [];
+
+  /**
+   * Sets the inert attribute for all elements that are direct children of the body,
+   * except for the element that is passed as an argument.
+   *
+   * @param {Element} exceptElement - The element that should not be set inert.
+   * @return {void}
+   */
+  function setInertForAll(exceptElement) {
+    const allElements = document.querySelectorAll("body > *:not(#lightbox)");
+
+    allElements.forEach((element) => {
+      if (element !== exceptElement) {
+        element.setAttribute("inert", "true");
+      }
+    });
+  }
+
+  /**
+   * Removes the inert attribute from all elements that have it.
+   *
+   * @return {void}
+   */
+  function removeInertForAll() {
+    const allElements = document.querySelectorAll("[inert]");
+
+    allElements.forEach((element) => {
+      element.removeAttribute("inert");
+    });
+  }
 
   /**
    * Opens the lightbox and displays the media element at the specified index.
@@ -74,6 +98,9 @@ export function lightbox() {
 
     const titleElement = document.createElement("h2");
     titleElement.className = "lightbox-title";
+    titleElement.textContent =
+      mediaElement.getAttribute("alt") ||
+      mediaElement.getAttribute("data-title");
 
     if (mediaElement.tagName === "VIDEO") {
       const video = mediaElement.cloneNode(true);
@@ -89,10 +116,12 @@ export function lightbox() {
 
     lightboxContainer.appendChild(titleElement);
 
-    
     lightbox.style.display = "block";
+    document.querySelector(".close-lightbox").focus();
     document.addEventListener("keydown", handleKeydown);
     document.body.style.overflow = "hidden";
+
+    setInertForAll(lightbox);
   }
 
   /**
@@ -111,6 +140,8 @@ export function lightbox() {
     lightbox.style.display = "none";
     document.removeEventListener("keydown", handleKeydown);
     document.body.style.overflow = "auto";
+
+    removeInertForAll();
   }
 
   /**
@@ -156,14 +187,30 @@ export function lightbox() {
     } else if (event.key === "Escape") {
       closeLightbox();
     }
-
   }
 
   document
     .querySelector(".close-lightbox")
     .addEventListener("click", closeLightbox);
+  document
+    .querySelector(".close-lightbox")
+    .addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        closeLightbox();
+      }
+    });
   document.querySelector(".next").addEventListener("click", showNext);
+  document.querySelector(".next").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      showNext();
+    }
+  });
   document.querySelector(".prev").addEventListener("click", showPrevious);
+  document.querySelector(".prev").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      showPrevious();
+    }
+  });
 
   /**
    * Sets up event listeners for media elements in the gallery to open the lightbox when clicked or when the Enter key is pressed.

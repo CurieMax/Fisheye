@@ -21,11 +21,14 @@ export function displayModal(photographer) {
   body.style.overflow = "hidden"; 
 
   closeImg.setAttribute("tabindex", "0");
-  header.setAttribute("tabindex", "-1");
   
   // passer la navigation du modal en priorité
   modal.focus();
-  
+  header.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") {
+      modal.focus();
+    }
+  });
   main.addEventListener("keydown", (event) => {
     if (event.key === "Tab") {
       modal.focus();
