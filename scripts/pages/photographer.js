@@ -208,25 +208,36 @@ function filterMedia(items, sortBy) {
 }
 
 function setupSortBy(medias) {
-  document.getElementById("sortMedia").addEventListener("change", function () {
-    const sortBy = this.value;
+  const filterElement = document.getElementById("sortMedia");
 
-    // Trier les médias en fonction du critère sélectionné
-    const sortedMedias = filterMedia(medias, sortBy);
+  // Écouteur d'événement pour le changement de filtre
+  filterElement.addEventListener("change", function () {
+    applyFilter(this.value, medias);
+  });
 
-    // Sélectionner la galerie et la vider
-    const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = ""; // Vider la galerie
-
-    // Réafficher les médias triés
-    displayMediasData(sortedMedias);
-
-    // Reconfigurer la lightbox après le tri
-    createLightbox();
-    lightbox();
+  // Ajout d'un écouteur d'événement pour la touche "Entrée"
+  filterElement.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      applyFilter(this.value, medias);
+    }
   });
 }
 
+function applyFilter(sortBy, medias) {
+  // Trier les médias en fonction du critère sélectionné
+  const sortedMedias = filterMedia(medias, sortBy);
+
+  // Sélectionner la galerie et la vider
+  const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = ""; // Vider la galerie
+
+  // Réafficher les médias triés
+  displayMediasData(sortedMedias);
+
+  // Reconfigurer la lightbox après le tri
+  createLightbox();
+  lightbox();
+}
 /**
  * Initializes the function by retrieving the photographer's ID from the URL,
  * fetching the photographer's information using the ID, and displaying the

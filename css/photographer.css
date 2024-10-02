@@ -287,6 +287,11 @@
   gap: 6px;
 }
 
+.image-likes .liked::before {
+  content: '\2665';
+  font-family: "FontAwesome";
+  color: #901C1C;
+}
 
 
 .image-likes .liked {

@@ -64,10 +64,12 @@ class Media {
         currentLikes--;
         icon.classList.remove("liked");
         icon.setAttribute("aria-label", "Retirer des favoris");
+        icon.setAttribute("tabindex", 0);
       } else {
         currentLikes++;
         icon.classList.add("liked");
         icon.setAttribute("aria-label", "Ajouter aux favoris");
+        icon.setAttribute("tabindex", 0);
       }
       imgLikesSpan.textContent = `${currentLikes} `;
       isLiked = !isLiked;
