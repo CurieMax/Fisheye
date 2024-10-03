@@ -26,7 +26,7 @@ class Media {
    * @return {HTMLElement} The created media card element.
    */
   createMediaCard() {
-    const imgCard = document.createElement("div");
+    const imgCard = document.createElement("article");
     imgCard.className = "image-card";
     imgCard.setAttribute("id", this.id);
     imgCard.setAttribute("title", this.title);

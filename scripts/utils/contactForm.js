@@ -44,6 +44,17 @@ function modalKeydown(event) {
   }
 }
 
+function resetErrors() {
+  errors.forEach((errorElement) => {
+    errorElement.textContent = ""; // Clear the error message
+  });
+
+  const errorFields = document.querySelectorAll(".error");
+  errorFields.forEach((field) => {
+    field.classList.remove("error"); // Remove error class from input fields
+  });
+}
+
 /**
  * Closes the contact modal by setting its display style to none and resets the form.
  *
@@ -53,6 +64,8 @@ export function closeModal() {
   const modal = document.getElementById("contact_modal");
   modal.style.display = "none";
   form.reset();
+
+  resetErrors();
 
   // Relever le scroll de la page
   document.body.style.overflow = "auto";

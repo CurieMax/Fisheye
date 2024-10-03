@@ -112,6 +112,7 @@ export function lightbox() {
       const img = mediaElement.cloneNode(true);
       lightboxContainer.appendChild(img);
       titleElement.textContent = mediaElement.getAttribute("alt");
+      img.setAttribute("tabindex", -1);
     }
 
     lightboxContainer.appendChild(titleElement);
