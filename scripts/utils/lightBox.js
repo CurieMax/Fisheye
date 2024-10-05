@@ -1,5 +1,3 @@
-const main = document.getElementById("main");
-const header = document.querySelector("header");
 /**
  * Creates a lightbox element and appends it to the document body.
  *

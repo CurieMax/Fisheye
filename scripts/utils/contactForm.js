@@ -13,15 +13,15 @@ const header = document.querySelector("header");
  *
  * @return {void}
  */
-export function displayModal(photographer) {
+export function displayModal() {
   const modal = document.getElementById("contact_modal");
   modal.style.display = "block";
   modal.setAttribute("tabindex", "0");
   // Bloquer le scroll de la page
-  body.style.overflow = "hidden"; 
+  body.style.overflow = "hidden";
 
   closeImg.setAttribute("tabindex", "0");
-  
+
   // passer la navigation du modal en priorité
   modal.focus();
   header.addEventListener("keydown", (event) => {
@@ -72,7 +72,6 @@ export function closeModal() {
 
   header.setAttribute("tabindex", "0");
   document.removeEventListener("keydown", modalKeydown);
-
 }
 
 /**

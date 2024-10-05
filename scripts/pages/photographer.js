@@ -151,11 +151,8 @@ async function displayMediasData(medias) {
   bottomSection.appendChild(totalLikesElement);
 
   // Mettre à jour le compteur total lorsqu'on clique sur les likes individuels
-  document.querySelectorAll(".fa-heart").forEach((heartIcon, index) => {
+  document.querySelectorAll(".fa-heart").forEach((heartIcon) => {
     heartIcon.addEventListener("click", () => {
-      // Récupérer le nombre de likes de l'élément cliqué
-      const mediaLikesElement = medias[index].likes;
-
       if (!heartIcon.classList.contains("liked")) {
         totalLikes--;
         heartIcon.classList.remove("liked");
